@@ -1,0 +1,49 @@
+﻿<ESRI.Configuration xmlns="http://schemas.esri.com/Desktop/AddIns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>BarreLayerSelection</Name>
+  <AddInID>{30265e03-9a23-403a-aed1-3c694f1f54f9}</AddInID>
+  <Description>Permet d’effectuer différents traitements (Créer, Retirer, Détruire, Union, Intersection, Différence) relatifs à la conservation des éléments selon la sélection d’éléments et/ou la liste d’identifiants d’éléments contenus dans les « FeatureLayers ».</Description>
+  <Version>1.0</Version>
+  <Image>Images\mpoBarreLayerSelection.png</Image>
+  <Author>Michel Pothier</Author>
+  <Company>MPO</Company>
+  <Date>27/08/2013</Date>
+  <Targets>
+    <Target name="Desktop" version="10.5" />
+  </Targets>
+  <AddIn language="CLR" library="BarreLayerSelection.dll" namespace="BarreLayerSelection">
+    <ArcMap>
+      <Commands>
+        <Button id="MPO_BarreLayerSelection_cmdCreerListeIdentifiant" class="cmdCreerListeIdentifiant" message="Créer une nouvelle liste d'identifiants d'éléments selon la sélection d'éléments des FeatureLayers visibles." caption="Créer une liste d'identifiant" tip="Créer une nouvelle liste d'identifiants d'éléments." category="MPO-BarreLayerSelection" image="Images\cmdCreerListeIdentifiant.png" onDemand="false">
+          <Help source="BarreLayerSelection.chm" topicID="10" />
+        </Button>
+        <Button id="MPO_BarreLayerSelection_cmdRetirerListeIdentifiant" class="cmdRetirerListeIdentifiant" message="Retirer la sélection d'éléments de la liste d'identifiants des FeatureLayers visibles." caption="Retirer la sélection de la liste d'identifiants" tip="Retirer la sélection de la liste d'identifiants d'éléments." category="MPO-BarreLayerSelection" image="Images\cmdRetirerListeIdentifiant.png" onDemand="false">
+          <Help source="BarreLayerSelection.chm" topicID="20" />
+        </Button>
+        <Button id="MPO_BarreLayerSelection_cmdDetruireListeIdentifiant" class="cmdDetruireListeIdentifiant" message="Détruire la liste d'identifiants d'éléments présente dans les FeatureLayer visibles." caption="Détruire la liste d'identifiants" tip="Détruire la liste d'identifiants d'éléments." category="MPO-BarreLayerSelection" image="Images\cmdDetruireListeIdentifiant.png" onDemand="false" >
+          <Help source="BarreLayerSelection.chm" topicID="30" />
+        </Button>
+        <Button id="MPO_BarreLayerSelection_cmdUnionSelection" class="cmdUnionSelection" message="Union entre la première sélection d'éléments et toutes les autres sélections d'éléments des FeatureLayers visibles qui possèdent la même FeatureClass." caption="Union entre les sélections" tip="Union entre les sélections d'éléments." category="MPO-BarreLayerSelection" image="Images\cmdUnionSelection.png" onDemand="false">
+          <Help source="BarreLayerSelection.chm" topicID="40" />
+        </Button>
+        <Button id="MPO_BarreLayerSelection_cmdIntersectSelection" class="cmdIntersectSelection" message="Intersection entre la première sélection d'éléments et toutes les autres sélections d'éléments des FeatureLayers visibles qui possèdent la même FeatureClass." caption="Intersection entre les sélections" tip="Intersection entre les sélections d'éléments." category="MPO-BarreLayerSelection" image="Images\cmdIntersectSelection.png" onDemand="false">
+          <Help source="BarreLayerSelection.chm" topicID="50" />
+        </Button>
+        <Button id="MPO_BarreLayerSelection_cmdDifferenceSelection" class="cmdDifferenceSelection" message="Différence entre la première sélection d'éléments et toutes les autres sélections d'éléments des FeatureLayers visibles qui possèdent la même FeatureClass." caption="Différence entre les sélections" tip="Différence entre les sélections d'éléments." category="MPO-BarreLayerSelection" image="Images\cmdDifferenceSelection.png" onDemand="false">
+          <Help source="BarreLayerSelection.chm" topicID="60" />
+        </Button>
+      </Commands>
+      <Toolbars>
+        <Toolbar id="MPO_BarreLayerSelection_Barre_Layer_Selection" caption="MPO-Barre Layer Selection (19 septembre 2017)" showInitially="true">
+          <Items>
+            <Button refID="MPO_BarreLayerSelection_cmdCreerListeIdentifiant" />
+            <Button refID="MPO_BarreLayerSelection_cmdRetirerListeIdentifiant" />
+            <Button refID="MPO_BarreLayerSelection_cmdDetruireListeIdentifiant" />
+            <Button refID="MPO_BarreLayerSelection_cmdUnionSelection" separator="true" />
+            <Button refID="MPO_BarreLayerSelection_cmdIntersectSelection" />
+            <Button refID="MPO_BarreLayerSelection_cmdDifferenceSelection" />
+          </Items>
+        </Toolbar>
+      </Toolbars>
+    </ArcMap>
+  </AddIn>
+</ESRI.Configuration>
