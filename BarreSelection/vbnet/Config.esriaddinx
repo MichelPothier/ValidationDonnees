@@ -1,0 +1,65 @@
+﻿<ESRI.Configuration xmlns="http://schemas.esri.com/Desktop/AddIns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>BarreSelection</Name>
+  <AddInID>{19e523ae-8de9-442c-b7c5-158236759c35}</AddInID>
+  <Description>Outil contenant plusieurs fonctionnalités pour sélectionner des éléments.</Description>
+  <Version>1.0</Version>
+  <Image>Images\mpoBarreSelection.png</Image>
+  <Author>mpothier</Author>
+  <Company>MPO</Company>
+  <Date>2016-11-10</Date>
+  <Targets>
+    <Target name="Desktop" version="10.5" />
+  </Targets>
+  <AddIn language="CLR" library="BarreSelection.dll" namespace="BarreSelection">
+    <ArcMap>
+      <Commands>
+        <Button id="MPO_BarreSelection_cmdActiverMenuContrainte" class="cmdActiverMenuContrainte" message="Activer le menu des contraintes d'intégrité afin d'afficher, exécuter et modifier les contraintes d'intégrité spatiale." caption="Menu des contraintes d'intégrité" tip="Activer le menu des contraintes d'intégrité." category="MPO-BarreSelection" image="Images\cmdActiverMenuContrainte.png" onDemand="false" />
+        <Button id="MPO_BarreSelection_cmdActiverMenu" class="cmdActiverMenu" message="Activer le menu afin d'afficher et modifier les paramètres de la barre de sélection." caption="Activer le menu des paramètres" tip="Activer le menu des paramètres de sélection." category="MPO-BarreSelection" image="Images\cmdActiverMenu.png" onDemand="false" />
+        <ComboBox id="MPO_BarreSelection_cboFeatureLayer" class="cboFeatureLayer" message="Classe dans lequel les éléments seront sélectionnés selon les paramètres spécifiés." caption="Classe de sélection." tip="Classe dans lequel les éléments seront sélectionnés." category="MPO-BarreSelection" image="Images\cboFeatureLayer.png" editable="true" sizeString="1234567890123456789012345678901234567890" rows="20" itemSizeString="1234567890123456789012345678901234567890" />
+        <ComboBox id="MPO_BarreSelection_cboRequete" class="cboRequete" message="Requête utilisée pour sélectionner les éléments de la classe de sélection selon les paramètres spécifiés." caption="Requête de sélection." tip="Requête utilisée pour sélectionner les éléments de la classe de sélection." category="MPO-BarreSelection" image="Images\cboContrainte.png" editable="true" sizeString="123456789012345678901" rows="20" itemSizeString="123456789012345678901" />
+        <ComboBox id="MPO_BarreSelection_cboParametres" class="cboParametres" message="Paramètres de la requête utilisés pour sélectionner les éléments de la classe de sélection." caption="Paramètres de la requête." tip="Paramètres de la requête utilisés pour sélectionner les éléments." category="MPO-BarreSelection" image="Images\cboParametres.png" editable="true" sizeString="1234567890123456789012345678901234567890123456789" rows="20" itemSizeString="1234567890123456789012345678901234567890123456789" />
+        <ComboBox id="MPO_BarreSelection_cboTypeSelection" class="cboTypeSelection" message="Type de sélection utilisé pour sélectionner les éléments de la classe de sélection.&#xD;&#xA;&#xD;&#xA;Seuls les éléments sélectionnés sont traités.&#xD;&#xA;Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.&#xD;&#xA;&#xD;&#xA;Conserver : Les éléments qui respectent la contrainte sont conservés dans la sélection.&#xD;&#xA;&#xD;&#xA;Enlever : Les éléments qui respectent la contrainte sont enlevés dans la sélection." caption="Type de sélection." tip="Type de sélection utilisé pour sélectionner les éléments de la classe de sélection." category="MPO-BarreSelection" image="Images\cboTypeSelection.png" sizeString="1234567890" rows="2" itemSizeString="1234567890" />
+        <Button id="MPO_BarreSelection_cmdSelectionner" class="cmdSelectionner" message="Sélectionner les éléments de la classe de sélection selon les paramètres spécifiés." caption="Sélectionner les éléments." tip="Sélectionner les éléments de la classe de sélection." category="MPO-BarreSelection" image="Images\cmdSelectionner.png" onDemand="false" />
+        <Button id="MPO_BarreSelection_cmdDessinerGeometrie" class="cmdDessinerGeometrie" message="Dessiner les géométries trouvées suite à l'exécution d'une contrainte d'intégrité et ses paramètres." caption="Dessiner les géométries trouvées" tip="Dessiner les géométries trouvées selon une contrainte d'intégrité." category="MPO-BarreSelection" image="Images\cmdDessinerGeometrie.png" onDemand="false" />
+        <Button id="MPO_BarreSelection_cmdZoomGeometrieErreur" class="cmdZoomGeometrieErreur" message="Zoom selon les géométries en erreur trouvées lors de l'exécution d'une requête spatiale." caption="Zoom des géométries trouvées" tip="Zoom selon les géométries en erreur." category="MPO-BarreSelection" image="Images\cmdZoomGeometrieErreur.png" onDemand="false" />
+        <ComboBox id="MPO_BarreSelection_cboAttributGroupe" class="cboAttributGroupe" message="Attribut utilisé pour effectuer la sélection de groupe selon la valeur du premier élément trouvé." caption="Attribut de groupe" tip="Attribut pour la sélection de groupe" category="MPO-BarreSelection" image="Images\cboAttributGroupe.png" editable="true" sizeString="01234567890123456789" rows="10" itemSizeString="01234567890123456789" />
+        <Tool id="MPO_BarreSelection_tooSelectGroupe" class="tooSelectGroupe" message="Sélectionner les éléments par groupe selon la valeur d'un attribut du premier élément trouvé." caption="Sélectionner par groupe" tip="Sélectionner les éléments par groupe" category="MPO-BarreSelection" image="Images\tooSelectGroupe.png" cursor="Images\tooSelectGroupe.cur" onDemand="false" />
+        <Button id="MPO_BarreSelection_cmdCreerTopologie" class="cmdCreerTopologie" message="Créer la topologie en mémoire selon les FeatureLayers visibles." caption="Créer la topologie" tip="Créer la topologie" category="MPO-BarreSelection" image="Images\cmdCreerTopologie.png" onDemand="false" />
+        <Button id="MPO_BarreSelection_cmdAfficherTopologie" class="cmdAfficherTopologie" message="Afficher les géométries de la topologie." caption="Afficher la topologie" tip="Afficher les géométries de la topologie." category="MPO-BarreSelection" image="Images\cmdAfficherTopologie.png" onDemand="false" />
+        <Tool id="MPO_BarreSelection_tooSelectReseau" class="tooSelectReseau" message="Sélectionner et afficher les éléments visibles d'un réseau à partir d'un Noeud sélectionné (SHIFT pour sélectionner)." caption="Sélectionner et afficher par réseau" tip="Sélectionner et afficher les éléments par réseau" category="MPO-BarreSelection" image="Images\tooSelectReseau.png" cursor="Images\tooSelectReseau.cur" onDemand="false" />
+        <Button id="MPO_BarreSelection_cmdAfficherValeurPixel" class="cmdAfficherValeurPixel" message="Afficher toutes les valeurs de pixels des images visibles.&#xD;&#xA;Les valeurs NODATA ne sont pas affichées." caption="Afficher les valeurs de pixel" tip="Afficher toutes les valeurs de pixels des images visibles." category="MPO-BarreSelection" image="Images\cmdAfficherValeurPixel.png" onDemand="false" />
+        <Button id="MPO_BarreSelection_cmdAfficherZ" class="cmdAfficherZ" message="Afficher le Z des extrémités d'éléments à partir des valeurs d'élévation présentes sur les MNE visibles." caption="Afficher le Z" tip="Afficher le Z des extrémités d'éléments" category="MPO-BarreSelection" image="Images\cmdAfficherZ.png" onDemand="false" />
+      </Commands>
+      <Toolbars>
+        <Toolbar id="MPO_BarreSelection_MPO-BarreSelection" caption="MPO-BarreSelection (19 septembre 2017)" showInitially="false">
+          <Items>
+            <Button refID="MPO_BarreSelection_cmdActiverMenuContrainte" />
+            <Button refID="MPO_BarreSelection_cmdActiverMenu" />
+            <Button refID="MPO_BarreSelection_cboFeatureLayer" />
+            <Button refID="MPO_BarreSelection_cboRequete" />
+            <Button refID="MPO_BarreSelection_cboParametres" />
+            <Button refID="MPO_BarreSelection_cboTypeSelection" />
+            <Button refID="MPO_BarreSelection_cmdSelectionner" />
+            <Button refID="MPO_BarreSelection_cmdDessinerGeometrie" />
+            <Button refID="MPO_BarreSelection_cmdZoomGeometrieErreur" />
+            <Button refID="MPO_BarreSelection_cboAttributGroupe" separator="true" />
+            <Button refID="MPO_BarreSelection_tooSelectGroupe" />
+            <Button refID="MPO_BarreSelection_cmdCreerTopologie" separator="true" />
+            <Button refID="MPO_BarreSelection_cmdAfficherTopologie" />
+            <Button refID="MPO_BarreSelection_tooSelectReseau" />
+            <Button refID="MPO_BarreSelection_cmdAfficherZ" separator="true" />
+            <Button refID="MPO_BarreSelection_cmdAfficherValeurPixel" />
+          </Items>
+        </Toolbar>
+      </Toolbars>
+      <DockableWindows>
+        <DockableWindow id="MPO_BarreSelection_dckMenuSelection" class="dckMenuSelection+AddinImpl" caption="Menu des paramètres de sélection" image="Images\dckMenuSelection.png">
+          <InitialPlacement height="300" width="300" state="pinned" position="left" />
+        </DockableWindow>
+        <DockableWindow id="MPO_BarreSelection_dckMenuContrainteIntegrite" class="dckMenuContrainteIntegrite+AddinImpl" caption="Menu des contraintes d'intégrité" image="Images\dckMenuContrainteIntegrite.png">
+          <InitialPlacement height="550" width="300" state="unpinned" position="float" />
+        </DockableWindow>
+      </DockableWindows>
+    </ArcMap>
+  </AddIn>
+</ESRI.Configuration>
