@@ -1,0 +1,56 @@
+﻿<ESRI.Configuration xmlns="http://schemas.esri.com/Desktop/AddIns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>BarreEdgeMatch</Name>
+  <AddInID>{7abf3584-d5ff-4a31-a056-10e4cb3ce887}</AddInID>
+  <Description>Barre de menu ArcMap qui permet d'effectuer le EdgeMatch (Ajustement horizontal) entre deux ou plusieurs unités de découpage d'entités.</Description>
+  <Version>1.0</Version>
+  <Image>Images\MpoBarreEdgeMatch.png</Image>
+  <Author>mpothier</Author>
+  <Company>MPO</Company>
+  <Date>2013-11-07</Date>
+  <Targets>
+    <Target name="Desktop" version="10.5" />
+  </Targets>
+  <AddIn language="CLR" library="BarreEdgeMatch.dll" namespace="BarreEdgeMatch">
+    <ArcMap>
+      <Commands>
+        <Button id="MPO_BarreEdgeMatch_cmdActiverMenu" class="cmdActiverMenu" message="Activer le menu contenant l'information pour traiter le EdgeMatch (Ajustement horizontal) entre un ou plusieurs unités de découpage d'entités." caption="Activer le menu" tip="Activer le menu contenant l'information pour traiter le EdgeMatch." category="MPO-BarreEdgeMatch" image="Images\cmdActiverMenu.png" onDemand="false">
+          <Help source="BarreEdgeMatch.chm" topicID="cmdActiverMenu" />
+        </Button>
+        <Button id="MPO_BarreEdgeMatch_cmdDefinirLimite" class="cmdDefinirLimite" message="Définir les limites de EdgeMatch à partir des éléments de la classe de découpage." caption="Définir les limites" tip="Définir les limites de EdgeMatch" category="MPO-BarreEdgeMatch" image="Images\cmdDefinirLimite.png" onDemand="false" />
+        <Button id="MPO_BarreEdgeMatch_cmdZoomLimite" class="cmdZoomLimite" message="Zoom selon les limites de EdgeMatch définies." caption="Zoom selon les limites" tip="Zoom selon les limites du EdgeMatch" category="MPO-BarreEdgeMatch" image="Images\cmdZoomLimite.png" onDemand="false" />
+        <Button id="MPO_BarreEdgeMatch_cmdDessinerLimite" class="cmdDessinerLimite" message="Dessiner les limite du EdgeMatch définies." caption="Dessiner les limites" tip="Dessiner les limites du EdgeMatch" category="MPO-BarreEdgeMatch" image="Images\cmdDessinerLimite.png" onDemand="false" />
+        <Button id="MPO_BarreEdgeMatch_cmdIdentifierAdjacence" class="cmdIdentifierAdjacence" message="Identifier les points d'adjacence et les erreurs de précision, d'adjacence et d'attribut." caption="Identifier les points d'adjacence" tip="Identifier les points d'adjacence" category="MPO-BarreEdgeMatch" image="Images\cmdIdentifierAdjacence.png" onDemand="false" />
+        <Button id="MPO_BarreEdgeMatch_cmdDessinerAdjacence" class="cmdDessinerAdjacence" message="Dessiner les points d'adjacence." caption="Dessiner les points d'adjacence" tip="Dessiner les points d'adjacence" category="MPO-BarreEdgeMatch" image="Images\cmdDessinerAdjacence.png" onDemand="false" />
+        <Button id="MPO_BarreEdgeMatch_cmdDessinerErreur" class="cmdDessinerErreur" message="Dessiner les erreurs de précision, d'adjacence et d'attribut." caption="Dessiner les erreurs" tip="Dessiner les erreurs" category="MPO-BarreEdgeMatch" image="Images\cmdDessinerErreur.png" onDemand="false" />
+        <Button id="MPO_BarreEdgeMatch_cmdCorrigerPrecision" class="cmdCorrigerPrecision" message="Corriger les erreur de précision." caption="Corriger les erreurs de précision" tip="Corriger les erreurs de précision" category="MPO-BarreEdgeMatch" image="Images\cmdCorrigerPrecision.png" onDemand="false" />
+        <Button id="MPO_BarreEdgeMatch_cmdCorrigerAdjacence" class="cmdCorrigerAdjacence" message="Corriger les erreurs d'adjacence." caption="Corriger les erreurs d'adjacence" tip="Corriger les errerus d'adjacence" category="MPO-BarreEdgeMatch" image="Images\cmdCorrigerAdjacence.png" onDemand="false" />
+        <Button id="MPO_BarreEdgeMatch_cmdCorrigerAttribut" class="cmdCorrigerAttribut" message="Corriger les erreurs d'attributs." caption="Corriger les erreurs d'attribut" tip="Corriger les erreurs d'attribut" category="MPO-BarreEdgeMatch" image="Images\cmdCorrigerAttribut.png" onDemand="false" />
+        <Button id="MPO_BarreEdgeMatch_cmdDecouperLimiteFenetre" class="cmdDecouperLimiteFenetre" message="Découpe la limite d'adjustement horizontal selon le polygon correspondant à la fenêtre graphique." caption="Découpe la limite selon la fenêtre" tip="Découpe la limite selon la fenêtre graphique." category="MPO-BarreEdgeMatch" image="Images\cmdDecouperLimiteFenetre_1.png" onDemand="false" />
+        <Button id="MPO_BarreEdgeMatch_cmdCorrigerFenetre" class="cmdCorrigerFenetre" message="Corriger toutes les erreurs de précision, d'adjacence et d'attribut contenues dans la fenêtre graphique." caption="Corriger les erreurs dans la fenêtre" tip="Corriger toutes les erreurs contenues dans la fenêtre graphique." category="MPO-BarreEdgeMatch" image="Images\cmdCorrigerFenetre_1.png" onDemand="false" />
+      </Commands>
+      <Toolbars>
+        <Toolbar id="MPO_BarreEdgeMatch_BarreEdgeMatch" caption="MPO-BarreEdgeMatch (19 septembre 2017)" showInitially="false">
+          <Items>
+            <Button refID="MPO_BarreEdgeMatch_cmdActiverMenu" separator="true" />
+            <Button refID="MPO_BarreEdgeMatch_cmdDefinirLimite" />
+            <Button refID="MPO_BarreEdgeMatch_cmdDecouperLimiteFenetre" />
+            <Button refID="MPO_BarreEdgeMatch_cmdZoomLimite" />
+            <Button refID="MPO_BarreEdgeMatch_cmdDessinerLimite" />
+            <Button refID="MPO_BarreEdgeMatch_cmdIdentifierAdjacence" separator="true" />
+            <Button refID="MPO_BarreEdgeMatch_cmdDessinerAdjacence" />
+            <Button refID="MPO_BarreEdgeMatch_cmdDessinerErreur" />
+            <Button refID="MPO_BarreEdgeMatch_cmdCorrigerPrecision" separator="true" />
+            <Button refID="MPO_BarreEdgeMatch_cmdCorrigerAdjacence" />
+            <Button refID="MPO_BarreEdgeMatch_cmdCorrigerAttribut" />
+            <Button refID="MPO_BarreEdgeMatch_cmdCorrigerFenetre" />
+          </Items>
+        </Toolbar>
+      </Toolbars>
+      <DockableWindows>
+        <DockableWindow id="MPO_BarreEdgeMatch_dckMenuEdgeMatch" class="dckMenuEdgeMatch+AddinImpl" caption="Menu du EdgeMatch" image="Images\dckMenuEdgeMatch.png">
+          <InitialPlacement height="300" width="300" state="pinned" position="left" />
+        </DockableWindow>
+      </DockableWindows>
+    </ArcMap>
+  </AddIn>
+</ESRI.Configuration>

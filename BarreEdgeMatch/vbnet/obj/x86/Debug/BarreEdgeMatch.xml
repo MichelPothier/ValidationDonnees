@@ -1,0 +1,721 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+BarreEdgeMatch
+</name>
+</assembly>
+<members>
+<member name="T:BarreEdgeMatch.cmdDessinerAdjacence">
+	<summary>
+ Commande qui permet de dessiner les points d'adjacences présentent aux limites communes de découpage.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 4 juillet 2011
+</remarks>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_Application">
+	<summary>Interface ESRI contenant l'application ArcMap.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_MxDocument">
+	<summary>Interface ESRI contenant le document ArcMap.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_MapLayer">
+	<summary>Objet qui permet de gérer la Map et ses layers.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_FeatureLayerDecoupage">
+	<summary>Interface ESRI contenant la classe de découpage.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_IdentifiantDecoupage">
+	<summary>Interface ESRI contenant le nom de l'attribut contenant l'identifiant de découpage.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_LimiteDecoupage">
+	<summary>Interface ESRI contenant les limites communes de découpage.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_LimiteDecoupageAvecPoint">
+	<summary>Interface ESRI contenant les limites communes de découpage avec les points d'adjacence.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_AttributAdjacence">
+	<summary>Objet contenant la liste des attributs d'adjacence à valider.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_ListePointAdjacence">
+	<summary>Interface ESRI contenant la liste des points d'adjacence.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_ListeElementTraiter">
+	<summary>Objet contenant la liste des éléments à traiter.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_ListeElementPointAdjacent">
+	<summary>Objet contenant la liste des éléments aux points d'adjacence.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_ListeErreurPointAdjacent">
+	<summary>Objet contenant les points d'adjacence qui possède des erreurs.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_ErreurFeature">
+	<summary>Objet contenant les éléments d'erreurs de précision, d'adjacence et d'attributs.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_ErreurFeaturePrecision">
+	<summary>Objet contenant les éléments d'erreurs de précision.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_ErreurFeatureAdjacence">
+	<summary>Objet contenant les éléments d'erreurs d'adjacence.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_ErreurFeatureAttribut">
+	<summary>Objet contenant les éléments d'erreurs d'attributs.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_SpatialReferenceProj">
+	<summary>Interface contenant la référence spatiale projeter par défaut.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_MenuEdgeMatch">
+	<summary>Objet contenant le formulaire du EdgeMatch.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_TolAdjacence">
+	<summary> Contient la tolérance d'adjacence utilisée pour corriger les éléments adjacents.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_TolAdjacenceOri">
+	<summary> Contient la tolérance d'adjacence originale utilisée pour corriger les éléments adjacents.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_TolRecherche">
+	<summary> Contient la tolérance de recherche des éléments à traiter.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_TolRechercheOri">
+	<summary> Contient la tolérance de recherche originale des éléments à traiter.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_Precision">
+	<summary> Contient la précision des données utilisé pour traiter les éléments adjacents.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_AdjacenceUnique">
+	<summary> Indiquer si on permet d'avoir plusieurs éléments adjacents.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_ClasseDifferente">
+	<summary> Indiquer si on permet d'avoir des classes différentes entre les éléments adjacents.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_SansIdentifiant">
+	<summary> Indiquer si on permet d'avoir des identifiants pareils entre les éléments adjacents.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_SymboleTexte">
+	<summary> Interface ESRI contenant le symbol pour la texte.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_SymbolePoint">
+	<summary> Interface ESRI contenant le symbol pour la géométrie de type point.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_SymboleLigne">
+	<summary> Interface ESRI contenant le symbol pour la géométrie de type ligne.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_SymboleSurface">
+	<summary> Interface ESRI contenant le symbol pour la géométrie de type surface.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_Height">
+	<summary>Valeur initiale de la dimension en hauteur du menu.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_Width">
+	<summary>Valeur initiale de la dimension en largeur du menu.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_ClasseHeight">
+	<summary>Valeur initiale de la différence de dimension en hauteur entre le menu et le listbox de classes.</summary>
+</member><member name="F:BarreEdgeMatch.modBarreEdgeMatch.m_AttributHeight">
+	<summary>Valeur initiale de la différence de dimension en hauteur entre le menu et le listbox d'attributs.</summary>
+</member><member name="T:BarreEdgeMatch.modBarreEdgeMatch.citsTypeErreur">
+	<summary>
+Définir la liste des groupes permis d'une incohérence
+</summary>
+</member><member name="T:BarreEdgeMatch.modBarreEdgeMatch.Structure_Element_Traiter">
+	<summary>Structure contenant un élément à traiter.</summary>
+</member><member name="T:BarreEdgeMatch.modBarreEdgeMatch.Structure_Point_Adjacence">
+	<summary>Structure contenant les points d'adjacence.</summary>
+</member><member name="T:BarreEdgeMatch.modBarreEdgeMatch.Structure_Erreur">
+	<summary>Structure contenant les erreurs.</summary>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.InitSymbole">
+	<summary>
+ Initialiser les couleurs par défaut pour le texte qui sera affiché avec les
+ géométries déssiné et initialiser les 3 couleurs pour les géométries de type
+ point, ligne et surface.
+</summary>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.bDessinerGeometrie(ESRI.ArcGIS.Geometry.IGeometry,System.Boolean)">
+	<summary>
+ Fonction qui permet de dessiner dans la vue active les géométries Point, MultiPoint, 
+ Polyline et/ou Polygon. Ces géométries peuvent être contenu dans un GeometryBag.
+ 
+ Un point est représenté par un carré, une ligne est représentée par une ligne pleine 
+ et la surface est représentée par une ligne pleine pour la limite et des lignes à
+ 45 dégrés pour l'intérieur. 
+ 
+ On peut également afficher le numéro de la géométrie pour un GeometryBag.
+</summary>
+	<param name="pGeometry"> Interface ESRI contenant la géométrie èa dessiner.</param>
+	<param name="bRafraichir"> Indique si on doit rafraîchir la vue active.</param>
+	<return>Un booleen est retourner pour indiquer la fonction s'est bien exécutée.</return>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.bDessinerTexte(ESRI.ArcGIS.Geometry.IPoint,System.String,System.Boolean)">
+	<summary>
+ Fonction qui permet de dessiner dans la vue active les géométries Point, MultiPoint, 
+ Polyline et/ou Polygon. Ces géométries peuvent être contenu dans un GeometryBag.
+ 
+ Un point est représenté par un carré, une ligne est représentée par une ligne pleine 
+ et la surface est représentée par une ligne pleine pour la limite et des lignes à
+ 45 dégrés pour l'intérieur. 
+ 
+ On peut également afficher le numéro de la géométrie pour un GeometryBag.
+</summary>
+	<param name="pPoint"> Interface ESRI contenant le point nécessaire (position) pour dessiner le texte.</param>
+	<param name="sTexte"> Contient le texte à dessiner.</param>
+	<param name="bRafraichir"> Indique si on doit rafraîchir la vue active.</param>
+	<return>Un booleen est retourner pour indiquer la fonction s'est bien exécutée.</return>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.DessinerErreurs">
+	<summary>
+ Routine qui permet de dessiner la géométrie et le texte des erreurs de précision, d'adjacence et d'attribut.
+</summary>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.ZoomLimiteDecoupage">
+	<summary>
+ Routine qui permet d'afficher la fenêtre graphique selon l'enveloppe de la limite commune de découpage plus 10%.
+</summary>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.DefinirLimiteDecoupage">
+	<summary>
+ Routine qui permet de définir et afficher les limites communes entre les éléments de la classe de découpage 
+ qui sont présents dans la fenêtre graphique. 
+</summary>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.IdentifierAdjacenceDecoupage(ESRI.ArcGIS.esriSystem.ITrackCancel@)">
+	<summary>
+ Routine qui permet d'identifier et valider tous les points d'adjacence aux limites communes de découpage 
+ qui sont présents dans la fenêtre graphique.
+</summary>
+	<param name="pTrackCancel">Interface qui permet d'annuler la sélection avec la touche ESC.</param>
+	<remarks>
+ À la fin du traitement :
+ -Les points d'adjacence sont identifiés.
+ -Les erreurs de précision sont identifiées.
+ -Les erreurs d'adjacence sont identifiées.
+ -Les erreurs d'attribut sont identifiées.
+ </remarks>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.DefinirPointAdjacenceVirtuel(ESRI.ArcGIS.esriSystem.ITrackCancel@)">
+	<summary>
+ Routine qui permet de définir les points d'adjacence virtuels.
+</summary>
+	<param name="pTrackCancel">Interface qui permet d'annuler la sélection avec la touche ESC.</param>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.TrouverListePointAdjacence(ESRI.ArcGIS.esriSystem.ITrackCancel@)">
+	<summary>
+ Routine qui permet de trouver tous tous les points d'adjacence à la limite du découpage.
+</summary>
+	<param name="pTrackCancel">Interface qui permet d'annuler la sélection avec la touche ESC.</param>
+	<remarks>
+ À la fin du traitement :
+ -Les points d'adjacence sont identifiés ainsi que les éléments qui y sont liés.
+ </remarks>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.IdentifierPointAdjacence(System.String@,ESRI.ArcGIS.Geometry.IPoint@,ESRI.ArcGIS.Geodatabase.IFeature@,ESRI.ArcGIS.Geometry.IHitTest@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
+	<summary>
+ Routine qui permet d'identifier un point d'adjacence spécifique par rapport aux limites communes de découpage
+ et de valider la précision du point d'adjacence identifié.
+</summary>
+	<param name="sIdentifiant">Contient l'identifiant de découpage de l'élément.</param>
+	<param name="pPoint">Interface ESRI contenant le sommet traité.</param>
+	<param name="pFeature">Interface ESRI contenant un élément sélectionné.</param>
+	<param name="pHitTest">Interface ESRI pour tester la présence du sommet recherché.</param>
+	<param name="pGeomColl">Interface ESRI utilisé pour ajouter des géométries.</param>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.ValiderDistanceListePointAdjacence(ESRI.ArcGIS.esriSystem.ITrackCancel@)">
+	<summary>
+ Routine qui permet de valider la distance entre les points d'adjacence.
+</summary>
+	<param name="pTrackCancel">Interface qui permet d'annuler la sélection avec la touche ESC.</param>
+	<remarks>
+ À la fin du traitement :
+ Les erreurs suivantes sont identifiées :
+    -Élément adjacent à déplacer
+ </remarks>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.TrouverElementAdjacentIsole(ESRI.ArcGIS.esriSystem.ITrackCancel@)">
+	<summary>
+ Routine qui permet de trouver et identifier l'élément adjacent pour tous les éléments isolés.
+</summary>
+	<param name="pTrackCancel">Interface qui permet d'annuler la sélection avec la touche ESC.</param>
+	<remarks>
+ À la fin du traitement :
+ Les erreurs "Aucun élément adjacent" identifiées préalablement sont éliminées si une corresponde est trouvée.
+ Les erreurs suivantes sont identifiées :
+    -Élément adjacent à déplacer
+ </remarks>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.ValiderAdjacenceListePointAdjacence(ESRI.ArcGIS.esriSystem.ITrackCancel@)">
+	<summary>
+ Routine qui permet de valider l'adjacence des éléments de la liste des points d'adjacence.
+</summary>
+	<param name="pTrackCancel">Interface qui permet d'annuler la sélection avec la touche ESC.</param>
+	<remarks>
+ À la fin du traitement :
+  Les erreurs possibles sont:
+    -Plusieurs éléments adjacents
+    -Aucun élément adjacent
+    -Valeurs différentes d'attribut    
+ </remarks>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.ValiderAttributAdjacence(ESRI.ArcGIS.Geometry.IPoint,ESRI.ArcGIS.Geodatabase.IFeature,ESRI.ArcGIS.Geodatabase.IFeature,System.String,System.String)">
+	<summary>
+ Routine qui permet de valider tous les attributs d'adjacence pour un point d'adjacence. 
+ Le ListBox des erreurs d'attribut est rempli.
+</summary>
+	<param name="pFeature">Interface ESRI contenant l'élément de base.</param>
+	<param name="pFeatureAdj">Interface ESRI contenant l'élément à comparer.</param>
+	<param name="sIdentifiant">Identifiant de l'élément de base.</param>
+	<param name="sIdentifiantAdj">Identifiant de l'élément à comparer.</param>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.EstAdjacent(ESRI.ArcGIS.Geometry.IPoint,ESRI.ArcGIS.Geodatabase.IFeature,ESRI.ArcGIS.Geodatabase.IFeature)">
+	<summary>
+ Routine qui permet de valider tous les attributs d'adjacence pour un point d'adjacence. 
+ Le ListBox des erreurs d'attribut est rempli.
+</summary>
+	<param name="pPoint">Interface contenant la géométrie du point d'adjacence.</param>
+	<param name="pFeatureA">Interface ESRI contenant l'élément de base.</param>
+	<param name="pFeatureB">Interface ESRI contenant l'élément à comparer.</param>
+	<returns>True si les éléments sont adjacents, False sinon.</returns>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.TransformerTolerances(ESRI.ArcGIS.Geometry.IEnvelope)">
+	<summary>
+ Routine qui permet de transformer les tolrérances de recherche et d'adjacence en géographique à partir d'un enveloppe d'une de zone travail.
+</summary>
+	<param name="pEnvelope"> Envelope correspondant à la zone de travail.</param>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.CorrigerErreurPrecision(System.Boolean)">
+	<summary>
+ Routine qui permet de corriger toutes les erreurs de précision.
+ On déplace les sommets de tous les éléments en erreur présents vers le point d'adjacence correspondant.
+ 
+<param name="bFenetre">Indique si on doit corriger seulement les erreurs présentes dans la fenêtre graphique.</param>
+	</summary>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.CorrigerErreurAdjacence(System.Boolean)">
+	<summary>
+ Routine qui permet de corriger toutes les erreurs d'adjacence.
+ On déplace les sommets de tous les éléments en erreur présents vers le point d'adjacence correspondant.
+ 
+<param name="bFenetre">Indique si on doit corriger seulement les erreurs présentes dans la fenêtre graphique.</param>
+	</summary>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.CorrigerErreurAttribut(System.Boolean)">
+	<summary>
+ Routine qui permet de corriger toutes les erreurs d'attribut.
+ On remplace la valeur de l'attribut en erreur.
+ 
+<param name="bFenetre">Indique si on doit corriger seulement les erreurs présentes dans la fenêtre graphique.</param>
+	</summary>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.DeplacerSommet(ESRI.ArcGIS.Geodatabase.IFeature@,ESRI.ArcGIS.Geometry.IPoint,ESRI.ArcGIS.Geometry.IPoint,System.Double)">
+	<summary>
+ Routine qui permet de déplacer le sommet de l'élément en erreur du pointA vers le pointB selon la tolérence active. 
+</summary>
+	<param name="pFeature">Interface ESRI contenant l'élément à corriger.</param>
+	<param name="pPointA">Interface ESRI contenant le point de départ.</param>
+	<param name="pPointB">Interface ESRI contenant le point d'arrivé.</param>
+	<param name="dTol">Contient la tolérence de recherche.</param>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.fsIdentifiantDecoupage(ESRI.ArcGIS.Geodatabase.IFeature@,System.String)">
+	<summary>
+ Fonction qui permet de retourner le nom de l'identifiant de découpage.
+ L'identifiant de découpage extrait de deux façons.:
+ -La première est contenue dans la valeur de l'attribut d'identifiant de découpage s'il est présent.
+ -La deuxième est contenue dans le nom du fichier sans extension dans laquelle la classe est contenue.
+ La première façon a préséance sur la deuxième.
+</summary>
+	<param name="pFeature">Interface ESRI contenant l'élément traité.</param>
+	<param name="sIdentifiantDecoupage">Contient le nom de l'attribut d'identifiant de découpage.</param>
+	<returns>La fonction va retourner un "String" contenant l'identifiant de découpage. Sinon "Nothing".</returns>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.fpBufferGeometrie(ESRI.ArcGIS.Geometry.IGeometry,System.Double)">
+	<summary>
+ Fonction qui permet de retourner le buffer de la géométrie spécifiée en paramètre selon une largeur.
+ 
+ Si la géométrie est vide, le buffer sera vide.
+ Si la largeur est nulle, la largeur changée pour la valeur 0.001.
+</summary>
+	<param name="pGeometry">Interface ESRI de la Géométrie à traiter.</param>
+	<param name="dLargeur">Largeur utilisée pour créer le buffer de la géométrie.</param>
+	<returns>La fonction va retourner un "IPolygon". Sinon "Nothing".</returns>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.TraiterZ(ESRI.ArcGIS.Geometry.IGeometry@,System.Double)">
+	<summary>
+ Routine qui permet de traiter le Z d'une Géométrie.
+</summary>
+	<param name=" pGeometry "> Interface contenant la géométrie à traiter.</param>
+	<param name=" dZ "> Contient la valeur du Z.</param>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.TraiterM(ESRI.ArcGIS.Geometry.IGeometry@,System.Double)">
+	<summary>
+ Routine qui permet de traiter le M d'une Géométrie.
+</summary>
+	<param name=" pGeometry "> Interface contenant la géométrie à traiter.</param>
+	<param name=" dM "> Contient la valeur du M.</param>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.fpConvertirEnMultiPoint(ESRI.ArcGIS.Geometry.IGeometry)">
+	<summary>
+ Fonction qui permet de transformer une géométrie point, ligne ou surface en MultiPoint. 
+</summary>
+	<param name="pGeometry">Interface ESRI contenant la géométrie à convertir en Multipoint.</param>
+	<returns>La fonction va retourner un "IMultiPoint" contenant un ou plusieurs points. Sinon "Nothing".</returns>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.DeplacerSommetGeometrie(ESRI.ArcGIS.Geometry.IGeometry@,ESRI.ArcGIS.Geometry.IPoint,ESRI.ArcGIS.Geometry.IPoint,System.Double,System.Boolean,System.Boolean)">
+	<summary>
+ Fonction qui permet de déplacer un sommet existant sur une géométrie en fonction d'un point, d'une tolérance de recherche
+ et d'un point de déplacement.
+</summary>
+	<param name="pGeometry">Interface ESRI contenant la géométrie à traiter.</param>
+	<param name="pPointA">Interface ESRI contenant le sommet à rechercher sur la géométrie selon une tolérance.</param>
+	<param name="pPointB">Interface ESRI contenant le sommet résultant du sommet trouvé.</param>
+	<param name="dTolerance">Contient la tolérance de recherche du sommet à rechercher sur la géométrie.</param>
+	<param name="bSimplifier">Indiquer si on doit simplifier la géométrie après avoir déplacé le sommet.</param>
+	<returns>TRUE pour indiquer si le sommet a été déplacé, FALSE sinon.</returns>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.InitBarreProgression(System.Int32,System.Int32,ESRI.ArcGIS.esriSystem.ITrackCancel@)">
+	<summary>
+ Routine qui permet d'initialiser la barre de progression.
+ 
+<param name="iMin">Valeur minimum.</param>
+		<param name="iMax">Valeur maximum.</param>
+		<param name="pTrackCancel">Interface contenant la barre de progression.</param>
+	</summary>
+</member><member name="M:BarreEdgeMatch.modBarreEdgeMatch.RetournerGeometryDef(ESRI.ArcGIS.Geodatabase.IFeatureClass)">
+	<summary> 
+ Cette fonction permet de retourner la définition de la géométrie à partir de la classe afin de vérifier la présence du Z et M.
+ </summary>
+	<param name="pFeatureClass"></param>
+	<returns>IGeometryDef</returns>
+</member><member name="T:BarreEdgeMatch.modBarreEdgeMatch">
+	<summary>
+Librairies de routines utilisée pour effectuer le EdgeMatch.
+</summary>
+	<remarks>
+Auteur : Michel Pothier
+Date : 4 juillet 2011
+</remarks>
+</member><member name="T:BarreEdgeMatch.cmdDessinerErreur">
+	<summary>
+ Commande qui permet de dessiner les erreurs de précision, d'adjacence et d'attribut présentent aux limites communes de découpage.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 21 juillet 2011
+</remarks>
+</member><member name="T:BarreEdgeMatch.cmdZoomLimite">
+	<summary>
+ Commande qui permet de faire un Zoom et dessiner les limites communes de découpage utilisé par le EdgeMatch.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 4 juillet 2011
+</remarks>
+</member><member name="T:BarreEdgeMatch.cmdCorrigerFenetre">
+	<summary>
+ Commande qui permet de corriger les erreurs de précision, d'adjacence et d'attribut présentent dans la fenêtre graphique active.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 7 novembre 2013
+</remarks>
+</member><member name="T:BarreEdgeMatch.cmdCorrigerAttribut">
+	<summary>
+ Commande qui permet de corriger les erreurs d'attributs aux points d'adjacence sur les limites communes de découpage.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 21 juillet 2011
+</remarks>
+</member><member name="T:BarreEdgeMatch.cmdCorrigerAdjacence">
+	<summary>
+ Commande qui permet de corriger les erreurs d'adjacence présentent aux points d'adjacence sur les limites communes de découpage.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 21 juillet 2011
+</remarks>
+</member><member name="T:BarreEdgeMatch.cmdCorrigerPrecision">
+	<summary>
+ Commande qui permet de corriger les erreurs de précision présentent aux points d'adjacence sur les limites communes de découpage.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 21 juillet 2011
+</remarks>
+</member><member name="T:BarreEdgeMatch.cmdActiverMenu">
+	<summary>
+ Commande qui permet d'activer le menu du EdgeMatch afin de définir les classes et les paramètres d'affichage.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 4 juillet 2011
+</remarks>
+</member><member name="T:BarreEdgeMatch.cmdDefinirLimite">
+	<summary>
+ Commande qui permet de définir et afficher les limites communes entre les éléments de la classe découpage 
+ qui sont présents dans la fenêtre graphique.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 4 juillet 2011
+</remarks>
+</member><member name="P:BarreEdgeMatch.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:BarreEdgeMatch.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="T:BarreEdgeMatch.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member><member name="T:BarreEdgeMatch.cmdDessinerLimite">
+	<summary>
+ Commande qui permet de dessiner les limites communes de découpage utilisé par le EdgeMatch.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 4 juillet 2011
+</remarks>
+</member><member name="F:BarreEdgeMatch.clsGererMapLayer.gpMap">
+	<summary>Interface contenant la Map à Gérer.</summary>
+</member><member name="P:BarreEdgeMatch.clsGererMapLayer.Map">
+	<summary>
+ Propriété qui permet de définir et retourner la Map traitée.
+</summary>
+</member><member name="P:BarreEdgeMatch.clsGererMapLayer.FeatureLayerCollection">
+	<summary>
+ Propriété qui permet de définir et retourner la collection de FeatureLayer traitée.
+</summary>
+</member><member name="M:BarreEdgeMatch.clsGererMapLayer.#ctor(ESRI.ArcGIS.Carto.IMap,System.Boolean)">
+	<summary>
+Routine qui permet d'initialiser la classe.
+</summary>
+</member><member name="M:BarreEdgeMatch.clsGererMapLayer.finalize">
+	<summary>
+Routine qui permet de vider la mémoire des objets de la classe.
+</summary>
+</member><member name="M:BarreEdgeMatch.clsGererMapLayer.ExtraireFeatureLayerByName(System.String)">
+	<summary>
+ Fonction qui permet d'extraire le FeatureLayer correspondant au nom spécifié.
+</summary>
+	<param name="sTexte">Texte utilisé pour trouver le FeatureLayer par défaut.</param>
+	<returns>"IFeatureLayer" correspondant au texte recherché, sinon "Nothing".</returns>
+</member><member name="M:BarreEdgeMatch.clsGererMapLayer.DefinirCollectionFeatureLayer(System.Boolean,ESRI.ArcGIS.Geometry.esriGeometryType)">
+	<summary>
+ Fonction qui permet de définir la collection des FeatureLayers présents dans la Map.
+ On peut indiquer si on veut aussi extraire les FeatureLayers non visibles.
+</summary>
+	<param name="bNonVisible"> Indique si on doit aussi extraire les FeatureLayers non visibles.</param>
+	<param name="pEsriGeometryType"> Contient le type de géométrie des FeatureLayers recherchés.</param>
+	<return>"Collection" contenant les "IFeatureLayer" visible ou non selon ce qui est demandé.</return>
+</member><member name="M:BarreEdgeMatch.clsGererMapLayer.DefinirGroupLayer(ESRI.ArcGIS.Carto.ILayer,System.Int32@)">
+	<summary>
+ Fonction qui permet d'extraire le GroupLayer dans lequel le Layer recherché est présent.
+</summary>
+	<param name="pLayerRechercher">Interface contenant le Layer à rechercher dans la Map active.</param>
+	<param name="nPosition">Position su Layer dans le GroupLayer.</param>
+	<returns>"Collection" contenant les "IGroupLayer" recherchés.</returns>
+</member><member name="M:BarreEdgeMatch.clsGererMapLayer.EstVisible(ESRI.ArcGIS.Carto.ILayer,System.Boolean)">
+	<summary>
+ Fonction qui permet d'indiquer si le FeatureLayer est visible ou non dans la IMap.
+</summary>
+	<param name="pLayerRechercher"> Interface ESRI contenant le Layer à rechercher.</param>
+	<param name="bPresent"> Contient l'indication si le Layer à rechercher est présent dans la Map.</param>
+	<return>"Collection" contenant les "IFeatureLayer" visible ou non.</return>
+</member><member name="M:BarreEdgeMatch.clsGererMapLayer.DefinirCollectionFeatureLayerGroup(Microsoft.VisualBasic.Collection@,ESRI.ArcGIS.Carto.IGroupLayer,System.Boolean,ESRI.ArcGIS.Geometry.esriGeometryType)">
+	<summary>
+ Routine qui permet de définir la collection des FeatureLayers contenus dans un GroupLayer.
+ On peut indiquer si on veut aussi extraire les FeatureLayers non visibles.
+</summary>
+	<param name="qFeatureLayerColl">Collection des FeatureLayer.</param>
+	<param name="pGroupLayer">Interface ESRI contenant un group de Layers.</param>
+	<param name="bNonVisible">Indique si on doit aussi extraire les FeatureLayers non visibles.</param>
+	<param name="pEsriGeometryType"> Contient le type de géométrie des FeatureLayers recherchés.</param>
+</member><member name="M:BarreEdgeMatch.clsGererMapLayer.ExtraireGroupLayerGroup(ESRI.ArcGIS.Carto.IGroupLayer,ESRI.ArcGIS.Carto.ILayer,System.Int32@)">
+	<summary>
+ Routine qui permet d'extraire le GroupLayer contenant un FeatureLayer.
+ Le GroupLayer recherché est contenu dans un GroupLayer.
+</summary>
+	<param name="pGroupLayer">Interface ESRI contenant un groupe de Layers.</param>
+	<param name="pLayerRechercher">Interface ESRI contenant le Layer à rechercher.</param>
+	<param name="nPosition">Position su Layer dans le GroupLayer.</param>
+</member><member name="M:BarreEdgeMatch.clsGererMapLayer.EstVisibleGroup(ESRI.ArcGIS.Carto.IGroupLayer,ESRI.ArcGIS.Carto.ILayer,System.Boolean)">
+	<summary>
+ Fonction qui permet d'indiquer si le FeatureLayer est visible ou non dans la IMap.
+</summary>
+	<param name="pGroupLayer">Interface ESRI contenant un group de Layers.</param>
+	<param name="pLayerRechercher"> Interface ESRI contenant le Layer à rechercher.</param>
+	<param name="bPresent"> Contient l'indication si le Layer à rechercher est présent dans la Map.</param>
+	<return>"Collection" contenant les "IFeatureLayer" visible ou non.</return>
+</member><member name="T:BarreEdgeMatch.clsGererMapLayer">
+	<summary>
+ Librairie de Classe qui permet de manipuler les différents types de Layer contenu dans une Map.
+</summary>
+	<remarks>
+Cette librairie est utilisable pour les outils interactifs ou Batch dans ArcMap (ArcGis de ESRI).
+
+Auteur : Michel Pothier
+Date : 6 Mai 2011
+</remarks>
+</member><member name="T:BarreEdgeMatch.cmdIdentifierAdjacence">
+	<summary>
+ Commande qui permet d'identifier les points d'adjacence et les erreurs aux limites communes de découpage.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 21 juillet 2011
+</remarks>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdActiverMenu">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdActiverMenu', the id declared for Add-in Button class 'cmdActiverMenu'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdDefinirLimite">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdDefinirLimite', the id declared for Add-in Button class 'cmdDefinirLimite'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdZoomLimite">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdZoomLimite', the id declared for Add-in Button class 'cmdZoomLimite'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdDessinerLimite">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdDessinerLimite', the id declared for Add-in Button class 'cmdDessinerLimite'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdIdentifierAdjacence">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdIdentifierAdjacence', the id declared for Add-in Button class 'cmdIdentifierAdjacence'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdDessinerAdjacence">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdDessinerAdjacence', the id declared for Add-in Button class 'cmdDessinerAdjacence'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdDessinerErreur">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdDessinerErreur', the id declared for Add-in Button class 'cmdDessinerErreur'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdCorrigerPrecision">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdCorrigerPrecision', the id declared for Add-in Button class 'cmdCorrigerPrecision'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdCorrigerAdjacence">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdCorrigerAdjacence', the id declared for Add-in Button class 'cmdCorrigerAdjacence'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdCorrigerAttribut">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdCorrigerAttribut', the id declared for Add-in Button class 'cmdCorrigerAttribut'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdDecouperLimiteFenetre">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdDecouperLimiteFenetre', the id declared for Add-in Button class 'cmdDecouperLimiteFenetre'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.cmdCorrigerFenetre">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_cmdCorrigerFenetre', the id declared for Add-in Button class 'cmdCorrigerFenetre'
+</summary>
+</member><member name="P:BarreEdgeMatch.My.ThisAddIn.IDs.dckMenuEdgeMatch">
+	<summary>
+Returns 'MPO_BarreEdgeMatch_dckMenuEdgeMatch', the id declared for Add-in DockableWindow class 'dckMenuEdgeMatch+AddinImpl'
+</summary>
+</member><member name="T:BarreEdgeMatch.My.ThisAddIn.IDs">
+	<summary>
+A class for looking up Add-in id strings declared in the associated configuration xml file (.esriaddinx).
+</summary>
+</member><member name="T:BarreEdgeMatch.My.ThisAddIn">
+	<summary>
+A class for looking up declarative information in the associated configuration xml file (.esriaddinx).
+</summary>
+</member><member name="M:BarreEdgeMatch.My.Internal.AddInStartupObject.GetThis">
+	<summary>
+ Expose this instance of Add-in class externally
+ </summary>
+</member><member name="T:BarreEdgeMatch.cmdDecouperLimiteFenetre">
+	<summary>
+ Commande qui permet de découper et afficher les limites communes selon l'enveloppe correspondant à la fenêtre graphique.
+</summary>
+	<remarks>
+Ce traitement est utilisable en mode interactif à l'aide de ses interfaces graphiques et doit être
+utilisé dans ArcMap (ArcGisESRI).
+
+Auteur : Michel Pothier
+Date : 7 novembre 2013
+</remarks>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.#ctor(System.Object)">
+	<summary>
+ Appeler lorsque le menu est créé
+ </summary>
+</member><member name="P:BarreEdgeMatch.dckMenuEdgeMatch.Hook">
+	<summary>
+ Host object of the dockable window
+ </summary>
+</member><member name="T:BarreEdgeMatch.dckMenuEdgeMatch.AddinImpl">
+	<summary>
+ Implementation class of the dockable window add-in. It is responsible for
+ creating and disposing the user interface class for the dockable window.
+ </summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.OnOpenDocument">
+	<summary>
+ Routine qui permet de réinitialiser le menu lorsqu'un nouveau document est ouvert.
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.OnContentsChanged">
+	<summary>
+ Routine qui permet de réinitialiser le menu lorsque le contenu change.
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.OnSpatialReferenceChanged">
+	<summary>
+ Routine qui permet de réinitialiser les tolérances lors d'un changement de référence spatiale.
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.OnItemAdded(System.Object)">
+	<summary>
+ Routine qui permet de réinitialiser le menu lorsqu'un nouvel item est ajouter dans la Map active.
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.OnItemDeleted(System.Object)">
+	<summary>
+ Routine qui permet de réinitialiser le menu lorsqu'un item est retiré dans la Map active.
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.InitialiserClasses">
+	<summary>
+ Routine permet d'initialiser la Map et la liste des classes visibles traitées.
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.InitialiserTolerance">
+	<summary>
+ Routine qui permet d'intialiser les tolérances et la précision. 
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.RemplirFormulairePointAdjacence">
+	<summary>
+ Routine qui permet de remplir le formulaire pour visualiser les erreurs de précision. 
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.RemplirFormulaireErreurPrecision">
+	<summary>
+ Routine qui permet de remplir le formulaire pour visualiser les erreurs de précision. 
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.RemplirFormulaireErreurAdjacence">
+	<summary>
+ Routine qui permet de remplir le formulaire pour visualiser les erreurs d'adjacence. 
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.RemplirFormulaireErreurAttribut">
+	<summary>
+ Routine qui permet de remplir le formulaire pour visualiser les erreurs d'attribut. 
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.InitialiserFormulaire">
+	<summary>
+ Routine permet d'initialiser le formulaire.
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.InitHandler">
+	<summary>
+ Permet d'initialiser les AddHandler.
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.DeleteHandler">
+	<summary>
+ Permet de détruire les AddHandler.
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.DefinirVariablesDefaut">
+	<summary>
+ Routine permet de définir les variables par défaut.
+</summary>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.RemplirComboBox(System.Windows.Forms.ComboBox@,System.String,ESRI.ArcGIS.Geometry.esriGeometryType)">
+	<summary>
+ Routine permet de remplir un ComboBox à partir de FeatureLayers visibles.
+</summary>
+	<param name="qComboBox">ComboBox à remplir.</param>
+	<param name="sTexte">Texte utilisé pour trouver le FeatureLayer par défaut.</param>
+	<remarks>
+ Si le texte est absent, le dernier de la liste sera utilisé comme celui par défaut.
+</remarks>
+</member><member name="M:BarreEdgeMatch.dckMenuEdgeMatch.RemplirListBoxFeatureLayer(System.Windows.Forms.ListBox@,System.Windows.Forms.ListBox@,System.String,System.String,System.Boolean)">
+	<summary>
+ Routine permet de remplir les ListBox des classes et des attributs à partir de FeatureLayers visibles.
+</summary>
+	<param name="qClasses">ListBox contenant les classes à remplir.</param>
+	<param name="lstAttributAdjacence">ListBox contenant les attributs d'adjacence à remplir.</param>
+	<param name="sSelectionnerAttribut">Texte utilisé pour sélectionner les attributs.</param>
+	<param name="sExclureClasse">Texte utilisé pour exclure des FeatureLayer.</param>
+	<param name="bExclureClasseVide">Texte utilisé pour exclure des FeatureLayer.</param>
+	<remarks>
+ "*" pour sélectionner tout, si le texte est absent, aucun ne sera sélectionné.
+</remarks>
+</member><member name="T:BarreEdgeMatch.dckMenuEdgeMatch">
+	<summary>
+ Designer class of the dockable window add-in. It contains user interfaces that
+ make up the dockable window.
+ </summary>
+</member>
+</members>
+</doc>
