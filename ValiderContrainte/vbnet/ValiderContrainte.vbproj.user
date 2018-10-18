@@ -12,6 +12,6 @@
     <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartArguments>"D:\bassin\02XA001_GROS_BV.mdb" "C:\Users\mpothier\AppData\Roaming\ESRI\Desktop10.5\ArcCatalog\BDRS_PRO_BDG_DBA.sde\BDG_DBA.CONTRAINTE_INTEGRITE_SPATIALE" "OBJECTID=1283" "ges_decoupage_rhn_2" "DATASET_NAME" "D:\bassin\02XA001_GROS_BV_Erreurs_[DATE_TIME].gdb" "D:\bassin\02XA001_GROS_BV_Rapport_[DATE_TIME].txt" "D:\bassin\02XA001_GROS_BV_Journal_[DATE_TIME].log"</StartArguments>
+    <StartArguments>"BDRS_PRO_BDG_DBA" "CONTRAINTE_INTEGRITE_SPATIALE" "OBJECTID=6081" "BDRS_PRO_BDG_DBA\ges_Decoupage_SNRC50K_Canada_2:dataset_name=%27040J08%27" "DATASET_NAME" "D:\Erreurs_[DATE_TIME]_[DATASET_NAME].gdb" "D:\Rapport_[DATE_TIME].txt" "D:\Journal_[DATE_TIME].log" ""</StartArguments>
   </PropertyGroup>
 </Project>

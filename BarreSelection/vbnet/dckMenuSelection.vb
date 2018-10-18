@@ -176,6 +176,20 @@ Public Class dckMenuSelection
             'Extraire le FeatureLayer de découpage
             m_FeatureLayerDecoupage = m_MapLayer.ExtraireFeatureLayerByName(cboLayerDecoupage.Text, True)
 
+            'vérifier si le FeatureLayer de découpage est valide
+            If m_FeatureLayerDecoupage IsNot Nothing Then
+                'Déclarer les variables de travail
+                Dim pSpatialRefTol As ISpatialReferenceTolerance = Nothing    'Interface contenant la tolérance XY de la référence spatiale.
+                'Interface pour extraire la précision de la référence spatiale
+                pSpatialRefTol = CType(m_MxDocument.FocusMap.SpatialReference, ISpatialReferenceTolerance)
+                'Extraire la précision de la référence spatiale
+                m_Precision = pSpatialRefTol.XYTolerance
+                'Afficher la précision de la référence spatiale
+                txtPrecision.Text = m_Precision.ToString("0.0#######")
+                'Vider la mémoire
+                pSpatialRefTol = Nothing
+            End If
+
         Catch erreur As Exception
             'Message d'erreur
             MsgBox("--Message: " & erreur.Message & vbCrLf & "--Source: " & erreur.Source & vbCrLf & "--StackTrace: " & erreur.StackTrace & vbCrLf)
@@ -341,7 +355,7 @@ Public Class dckMenuSelection
 
         Try
             'Créer un nouveau menu
-            windowID.Value = "MPO_BarreEdgeMatch_dckMenuEdgeMatch"
+            windowID.Value = "MPO_BarreSelection_dckMenuSelection"
             DockWindow = My.ArcMap.DockableWindowManager.GetDockableWindow(windowID)
 
             'Vérifier si le menu est visible

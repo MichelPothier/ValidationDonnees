@@ -223,6 +223,8 @@ Public Class cmdSelectionner
                     'Afficher le message
                     m_Application.StatusBar.Message(0) = erreur.Message
                 End If
+                'Rafraichier l'affichage des éléments sélectionnés
+                m_MxDocument.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeoSelection, Nothing, m_MxDocument.ActiveView.Extent)
             Else
                 'Message d'erreur
                 MsgBox("--Message: " & erreur.Message & vbCrLf & "--Source: " & erreur.Source & vbCrLf & "--StackTrace: " & erreur.StackTrace & vbCrLf)

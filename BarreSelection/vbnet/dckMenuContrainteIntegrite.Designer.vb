@@ -173,7 +173,7 @@ Partial Class dckMenuContrainteIntegrite
         Me.btnEnlever.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.btnEnlever.Name = "btnEnlever"
         Me.btnEnlever.Size = New System.Drawing.Size(23, 22)
-        Me.btnEnlever.Text = "Enlever l'item sélectionné."
+        Me.btnEnlever.Text = "Enlever l'item sélectionné de la mémoire."
         '
         'btnDetruire
         '
@@ -233,7 +233,7 @@ Partial Class dckMenuContrainteIntegrite
         Me.splContraintes.Panel2.Controls.Add(Me.rtbMessages)
         Me.splContraintes.Panel2.Controls.Add(Me.lblMessages)
         Me.splContraintes.Size = New System.Drawing.Size(550, 375)
-        Me.splContraintes.SplitterDistance = 299
+        Me.splContraintes.SplitterDistance = 277
         Me.splContraintes.TabIndex = 19
         '
         'lblInformation
@@ -243,7 +243,7 @@ Partial Class dckMenuContrainteIntegrite
         Me.lblInformation.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblInformation.Location = New System.Drawing.Point(0, 185)
         Me.lblInformation.Name = "lblInformation"
-        Me.lblInformation.Size = New System.Drawing.Size(546, 110)
+        Me.lblInformation.Size = New System.Drawing.Size(546, 88)
         Me.lblInformation.TabIndex = 19
         Me.lblInformation.TabStop = False
         Me.lblInformation.Text = "0 Contrainte(s)"
@@ -254,7 +254,7 @@ Partial Class dckMenuContrainteIntegrite
         Me.treContraintes.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.treContraintes.Location = New System.Drawing.Point(3, 16)
         Me.treContraintes.Name = "treContraintes"
-        Me.treContraintes.Size = New System.Drawing.Size(540, 91)
+        Me.treContraintes.Size = New System.Drawing.Size(540, 69)
         Me.treContraintes.TabIndex = 0
         '
         'tabParametres
@@ -325,9 +325,10 @@ Partial Class dckMenuContrainteIntegrite
         Me.lblClasseDecoupage.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblClasseDecoupage.Location = New System.Drawing.Point(3, 71)
         Me.lblClasseDecoupage.Name = "lblClasseDecoupage"
-        Me.lblClasseDecoupage.Size = New System.Drawing.Size(408, 13)
+        Me.lblClasseDecoupage.Size = New System.Drawing.Size(510, 13)
         Me.lblClasseDecoupage.TabIndex = 18
-        Me.lblClasseDecoupage.Text = "Classe de découpage : (Ex. D:\ValiderContraintes\ges_Decoupage_SNRC50K_2.lyr)"
+        Me.lblClasseDecoupage.Text = "Classe de découpage, Exemple: ges_Decoupage_SNRC50K_2:DATASET_NAME IN ('021M07','" & _
+    "021M08')"
         '
         'cboTableContraintes
         '
@@ -481,7 +482,7 @@ Partial Class dckMenuContrainteIntegrite
         Me.rtbMessages.HideSelection = False
         Me.rtbMessages.Location = New System.Drawing.Point(0, 13)
         Me.rtbMessages.Name = "rtbMessages"
-        Me.rtbMessages.Size = New System.Drawing.Size(546, 55)
+        Me.rtbMessages.Size = New System.Drawing.Size(546, 77)
         Me.rtbMessages.TabIndex = 21
         Me.rtbMessages.Text = ""
         '

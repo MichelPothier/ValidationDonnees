@@ -225,6 +225,8 @@ Public Class dckMenuContrainteIntegrite
         Dim oTreeNodeContrainte As TreeNode = Nothing   'Objet contenant le Node du TreeView pour une contrainte d'intégrité.
         Dim oRequete As intRequete          'Objet utilisé pour effectuer la sélection selon la requête.
         Dim pRow As IRow = Nothing                      'Interface contenant l'information d'une contrainte.
+        Dim sNomClasseSel As String = ""        'Contient le nom de la classe de sélection.
+        Dim sNomClasse As String = ""           'Contient le nom de la classe.
         Dim iPosAttTrier As Integer = -1        'Contient la position de l'attribut pour trier les contraintes.
         Dim iPosAttDecrire As Integer = -1      'Contient la position de l'attribut pour décrire les contraintes.
 
@@ -239,14 +241,28 @@ Public Class dckMenuContrainteIntegrite
 
                 'Vérifier si la table correspond à celle active
                 If oTreeNodeTable.Text = cboTableContraintes.Text Then
+                    'Définir le nom de la classe
+                    sNomClasseSel = oRequete.FeatureLayerSelection.FeatureClass.AliasName.ToUpper
+                    'vérifier si le nom contient le nom de l'usager
+                    If sNomClasseSel.Contains(".") Then
+                        'Enlever le nom de l'usager
+                        sNomClasseSel = sNomClasseSel.Split(CChar("."))(1)
+                    End If
+                    'Définir le nom de la classe
+                    sNomClasse = m_FeatureLayer.FeatureClass.AliasName.ToUpper
+                    'vérifier si le nom contient le nom de l'usager
+                    If sNomClasse.Contains(".") Then
+                        'Enlever le nom de l'usager
+                        sNomClasse = sNomClasse.Split(CChar("."))(1)
+                    End If
                     'Ajouter une contrainte dans la table
                     pRow = AjouterContrainte(m_TableContraintes.Table, _
                                              oRequete.Nom & "_" & oRequete.NomAttribut, _
-                                             "Valider la contrainte spatiale " & oRequete.Nom & " de la classe " & oRequete.FeatureLayerSelection.FeatureClass.AliasName.ToUpper, _
-                                             "Corriger la contrainte spatiale " & oRequete.Nom & " de la classe " & oRequete.FeatureLayerSelection.FeatureClass.AliasName.ToUpper, _
+                                             "Valider la contrainte spatiale " & oRequete.Nom & " de la classe " & sNomClasseSel, _
+                                             "Corriger la contrainte spatiale " & oRequete.Nom & " de la classe " & sNomClasseSel, _
                                              oRequete.Commande, _
                                              oRequete.Nom, _
-                                             m_FeatureLayer.FeatureClass.AliasName.ToUpper)
+                                             sNomClasse)
 
                     'Définir la position de l'attribut pour regrouper et trier les contraintes
                     iPosAttTrier = m_TableContraintes.Table.FindField(m_AttributTrier)
@@ -695,10 +711,11 @@ Public Class dckMenuContrainteIntegrite
         'Déclarer les variables de tavail
         Dim oTableContraintes As clsTableContraintes = Nothing  'Objet qui permet d'exécuter les contraintes
         Dim dDate As System.DateTime = System.DateTime.Now  'Contient la date de début d'exécution
+        Dim vExecuter As MsgBoxResult = MsgBoxResult.Yes    'Par défaut, on exécute le traitement
 
         Try
             'Initialiser le message d'erreur
-            rtbMessages.Text = "Traitement exécuté en interactif ..." & vbCrLf
+            rtbMessages.Text = "Initialisation du traitement ..." & vbCrLf
             rtbMessages.Refresh()
 
             'Initialiser le RichTextBox
@@ -721,8 +738,24 @@ Public Class dckMenuContrainteIntegrite
             oTableContraintes.TrackCancel = m_TrackCancel
             oTableContraintes.RichTextbox = m_RichTextBox
 
+            'Vérifier si une requête de découpage est présente
+            If Not cboClasseDecoupage.Text.Contains(":") Then
+                'Démander si on veut exécuter le traitement
+                vExecuter = MsgBox("Voulez-vous exécuter le traitement quand même ?", MsgBoxStyle.YesNo, "ATTENTION : Aucun découpage n'est présent ce qui peut être long à exécuter !")
+            End If
+
             'Exécuter les contraintes
-            oTableContraintes.Executer()
+            If vExecuter = MsgBoxResult.Yes Then
+                'Initialiser le message d'erreur
+                rtbMessages.Text = "Traitement exécuté en interactif ..." & vbCrLf
+                rtbMessages.Refresh()
+                'Exécuter le traitement
+                oTableContraintes.Executer()
+            Else
+                'Initialiser le message d'erreur
+                rtbMessages.Text = "Traitement annulé !" & vbCrLf
+                rtbMessages.Refresh()
+            End If
 
         Catch erreur As Exception
             'Message d'erreur
@@ -758,7 +791,7 @@ Public Class dckMenuContrainteIntegrite
             oTableContraintes.Courriel = cboCourriel.Text
 
             'Afficher la commande pour exécuter en batch
-            sProgramme = "S:\applications\gestion_bdg\pro\Geotraitement\exe\ValiderContrainte.exe"
+            sProgramme = "D:\cits\EnvCits\applications\gestion_bdg\pro\Geotraitement\exe\ValiderContrainte.exe"
             sArguments = oTableContraintes.Commande.Replace("ValiderContrainte.exe", "")
             rtbMessages.AppendText(sProgramme & " " & sArguments & vbCrLf & vbCrLf)
             rtbMessages.Refresh()
@@ -789,12 +822,15 @@ Public Class dckMenuContrainteIntegrite
     Private Sub cboGeodatabaseClasses_GotFocus(sender As Object, e As EventArgs) Handles cboGeodatabaseClasses.GotFocus
         'Déclarer les variables de travail
         Dim iSelectedIndex As Integer = -1      'Contient le numéro de l'index à sélectionner.
+        Dim sNom As String = ""                 'Contient le nom de la Géodatabase au départ
 
         Try
+            'Définir le nom de la Géodatabase au départ
+            sNom = cboGeodatabaseClasses.Text
             'Remplir le ComboBox pour définir la Geodatabase
             iSelectedIndex = RemplirComboBoxGeodatabase(cboGeodatabaseClasses, cboGeodatabaseClasses.Text)
             'Sélectionner l'index
-            cboGeodatabaseClasses.SelectedIndex = iSelectedIndex
+            If sNom <> cboGeodatabaseClasses.Text Then cboGeodatabaseClasses.SelectedIndex = iSelectedIndex
 
         Catch erreur As Exception
             'Message d'erreur
@@ -809,23 +845,31 @@ Public Class dckMenuContrainteIntegrite
         Dim pWorkspace As IWorkspace = Nothing              'Interface contenant une Géodatabase.
 
         Try
-            'Créer une nouvelle collection de géodatabase vide
-            qGeodatabaseColl = MapGeodatabaseColl(m_MxDocument.FocusMap)
+            'Vérifier si le nom de la Géodatabase est un mot clé
+            If cboGeodatabaseClasses.Text = "BDRS_PRO_BDG_DBA" Or cboGeodatabaseClasses.Text = "BDRS_TST_BDG_DBA" Then
+                'Définir la géodatabase
+                m_Geodatabase = DefinirGeodatabase(cboGeodatabaseClasses.Text)
 
-            'Traiter toutes les Géodatabases trouvées
-            For i = 1 To qGeodatabaseColl.Count
-                'Définir la Géodatabase
-                pWorkspace = CType(qGeodatabaseColl.Item(i), IWorkspace)
+                'Si le nom de la Géodatabase n'est pas un mot clé
+            Else
+                'Créer une nouvelle collection de géodatabase vide
+                qGeodatabaseColl = MapGeodatabaseColl(m_MxDocument.FocusMap)
 
-                'Vérifier la présence du texte recherché pour la valeur par défaut
-                If pWorkspace.PathName = cboGeodatabaseClasses.Text Then
-                    'Définir la géodatabase
-                    m_Geodatabase = pWorkspace
+                'Traiter toutes les Géodatabases trouvées
+                For i = 1 To qGeodatabaseColl.Count
+                    'Définir la Géodatabase
+                    pWorkspace = CType(qGeodatabaseColl.Item(i), IWorkspace)
 
-                    'Sortir
-                    Exit For
-                End If
-            Next
+                    'Vérifier la présence du texte recherché pour la valeur par défaut
+                    If pWorkspace.PathName = cboGeodatabaseClasses.Text Then
+                        'Définir la géodatabase
+                        m_Geodatabase = pWorkspace
+
+                        'Sortir
+                        Exit For
+                    End If
+                Next
+            End If
 
         Catch erreur As Exception
             'Message d'erreur
@@ -841,12 +885,15 @@ Public Class dckMenuContrainteIntegrite
     Private Sub cboTableContraintes_GotFocus(sender As Object, e As EventArgs) Handles cboTableContraintes.GotFocus
         'Déclarer les variables de travail
         Dim iSelectedIndex As Integer = -1      'Contient le numéro de l'index à sélectionner.
+        Dim sNom As String = ""                 'Contient le nom de la table au départ
 
         Try
+            'Définir le nom de la table au départ
+            sNom = cboTableContraintes.Text
             'Remplir le ComboBox pour définir la table d'intégrité spatiale
             iSelectedIndex = RemplirComboBoxTable(cboTableContraintes, cboTableContraintes.Text)
             'Sélectionner l'index
-            cboTableContraintes.SelectedIndex = iSelectedIndex
+            If sNom <> cboTableContraintes.Text Then cboTableContraintes.SelectedIndex = iSelectedIndex
 
         Catch erreur As Exception
             'Message d'erreur
@@ -862,10 +909,38 @@ Public Class dckMenuContrainteIntegrite
         Dim pStandaloneTable As IStandaloneTable = Nothing                  'Interface contenant une classe de données.
         Dim pDataset As IDataset = Nothing                                  'Interface contenant le nom complet de la table.
         Dim iSelectedIndex As Integer = -1      'Contient le numéro de l'index à sélectionner.
+        Dim sNomTable As String = ""
+        Dim sNomTableContraintes As String = ""
 
         Try
+            'Définir le nom de la table des contraintes
+            sNomTableContraintes = cboTableContraintes.Text
+
             'Définir la liste des StandaloneTable
             pStandaloneTableColl = CType(m_MxDocument.FocusMap, IStandaloneTableCollection)
+
+            'Vérifier si la géodatabse correspond à un mot clé
+            If cboGeodatabaseClasses.Text = "BDRS_PRO_BDG_DBA" Or cboGeodatabaseClasses.Text = "BDRS_TST_BDG_DBA" Then
+                'Vérifier si la table correspond à celle par défaut
+                If cboTableContraintes.Text = "CONTRAINTE_INTEGRITE_SPATIALE" Then
+                    'Définir la table des contraintes d'intégrité
+                    m_TableContraintes = DefinirStandaloneTable(CType(m_Geodatabase, IWorkspace2), cboTableContraintes.Text)
+
+                    'Ajouter la table des contraintes dans la Map active
+                    pStandaloneTableColl.AddStandaloneTable(m_TableContraintes)
+                    'Redéfinir le nom de la table des contraintes
+                    sNomTableContraintes = m_TableContraintes.Name
+
+                    'Activer les boutons
+                    btnImporter.Enabled = True
+                    cboTrierPar.Enabled = True
+                    cboDecrirePar.Enabled = True
+                    btnAjouterContrainte.Enabled = True
+
+                    'Sortir
+                    'Exit Sub
+                End If
+            End If
 
             'Traiter tous les StandaloneTable
             For i = 0 To pStandaloneTableColl.StandaloneTableCount - 1
@@ -878,8 +953,16 @@ Public Class dckMenuContrainteIntegrite
                     If pStandaloneTable.Table.HasOID Then
                         'Interface pour extraire le nom complet de la table
                         pDataset = CType(pStandaloneTable.Table, IDataset)
+                        'Vérifier la présence du Path de la Géodatabase
+                        If pDataset.Workspace.PathName.Length = 0 Then
+                            'Définir le nom complet de la table
+                            sNomTable = pDataset.Name
+                        Else
+                            'Définir le nom complet de la table
+                            sNomTable = pDataset.Workspace.PathName & "\" & pDataset.Name
+                        End If
                         'Vérifier si la table correspond à celle sélectionnée
-                        If pDataset.Workspace.PathName & "\" & pDataset.Name = cboTableContraintes.Text Then
+                        If sNomTable = sNomTableContraintes Then
                             'Définir la tables des contraintes d'intégrités spatiales
                             m_TableContraintes = pStandaloneTable
 
@@ -977,10 +1060,10 @@ Public Class dckMenuContrainteIntegrite
     Public Sub Init()
         'Déclarer les variables de travail
         Dim iSelectedIndex As Integer = -1      'Contient le numéro de l'index à sélectionner.
-        Dim sNomClasseDecoupage = "ges_Decoupage_SNRC50K_2"
+        Dim sNomClasseDecoupage = "ges_Decoupage_SNRC50K_Canada_2"
         Dim sNomAttributDecoupage = "DATASET_NAME"
-        Dim sNomRepertoireDefaut As String = "D:\ValiderContraintes\[DATE_TIME]" 'Contient le nom du répertoire par défaut.
-        Dim sNomRepertoireErreurs As String = sNomRepertoireDefaut & "\Erreurs_[DATE_TIME].gdb"
+        Dim sNomRepertoireDefaut As String = "D:" 'Contient le nom du répertoire par défaut.
+        Dim sNomRepertoireErreurs As String = sNomRepertoireDefaut & "\Erreurs_[DATE_TIME]_[DATASET_NAME].mdb"
         Dim sNomRapportErreurs As String = sNomRepertoireDefaut & "\Rapport_[DATE_TIME].txt"
         Dim sNomFichierJournal As String = sNomRepertoireDefaut & "\Journal_[DATE_TIME].log"
 
@@ -1005,11 +1088,12 @@ Public Class dckMenuContrainteIntegrite
             cboClasseDecoupage.Items.Clear()
             cboClasseDecoupage.Items.Add("")
             cboClasseDecoupage.Items.Add(sNomClasseDecoupage)
+            cboClasseDecoupage.Items.Add("ges_Decoupage_SNRC50K_2")
             cboClasseDecoupage.Items.Add("ges_Decoupage_RHN_2")
             cboClasseDecoupage.Items.Add("ges_Decoupage_Province_2")
             cboClasseDecoupage.Items.Add("ges_Decoupage_Canada_2")
             cboClasseDecoupage.Items.Add("ges_Decoupage_SNRC50K_2")
-            cboClasseDecoupage.Items.Add("D:\ValiderContraintes\ges_Decoupage_SNRC50K_2.lyr")
+            cboClasseDecoupage.Items.Add("D:\ges_Decoupage_SNRC50K_2.lyr")
             cboClasseDecoupage.Text = sNomClasseDecoupage
 
             'Initialiser le nom de la classe de découpage
@@ -1060,7 +1144,7 @@ Public Class dckMenuContrainteIntegrite
             'Initialiser la table des contraintes
             m_TableContraintes = Nothing
             'Remplir le ComboBox pour définir la table d'intégrité spatiale
-            iSelectedIndex = RemplirComboBoxTable(cboTableContraintes, "CONTRAINTE_INTEGRITE_SPATIALE")
+            iSelectedIndex = RemplirComboBoxTable(cboTableContraintes, "")
             'Sélectionner l'index
             cboTableContraintes.SelectedIndex = iSelectedIndex
 
@@ -1095,11 +1179,15 @@ Public Class dckMenuContrainteIntegrite
     '''
     '''<param name="sNomGeodatabase">Nom de la géodatabase existante.</param>
     '''<param name="sNomTableContraintes">Nom de la nouvelle table des contraintes d'intégrité.</param>
+    '''<param name="sNomProprietaireDefaut"> Contient le nom du propriétaire des tables par défaut pour les Géodatabase Enterprise.</param>
     ''' 
     '''<returns>"ITable" contenant une nouvelle table des contraintes d'intégrité.</returns>
     '''
-    Private Function CreerNouvelleTableContraintes(ByVal sNomGeodatabase As String, ByVal sNomTableContraintes As String) As ITable
+    Private Function CreerNouvelleTableContraintes(ByVal sNomGeodatabase As String, ByVal sNomTableContraintes As String,
+                                                   Optional ByVal sNomProprietaireDefaut As String = "BDG_DBA") As ITable
         'Déclarer les variables de travail
+        Dim pWorkspace2 As IWorkspace2 = Nothing                'Interface pour vérifier si la table existe.
+        Dim pWorkspace As IWorkspace = Nothing                  'Interface pour vérifier le type de Géodatabase.
         Dim pGeodatabaseType As Type = Nothing                  'Interface utilisé pour définir le type de géodatabase.
         Dim pWorkspaceFactory As IWorkspaceFactory = Nothing    'Interface pour créer un Workspace en mémoire.
         Dim pFeatureWorkspace As IFeatureWorkspace = Nothing    'Interface contenant un FeatureWorkspace.
@@ -1141,12 +1229,24 @@ Public Class dckMenuContrainteIntegrite
 
             'Vérifier si la Géodatabase est présente
             If pFeatureWorkspace IsNot Nothing Then
-                Try
+                'Interface pour vérifier le type de Géodatabase.
+                pWorkspace = CType(pFeatureWorkspace, IWorkspace)
+                'Vérifier si la Géodatabase est de type "Enterprise" 
+                If pWorkspace.Type = esriWorkspaceType.esriRemoteDatabaseWorkspace Then
+                    'Vérifier si le nom de la table contient le nom du propriétaire
+                    If Not sNomTableContraintes.Contains(".") Then
+                        'Définir le nom de la table avec le nom du propriétaire
+                        sNomTableContraintes = sNomProprietaireDefaut & "." & sNomTableContraintes
+                    End If
+                End If
+
+                'Interface pour vérifier si la table existe
+                pWorkspace2 = CType(pFeatureWorkspace, IWorkspace2)
+                'Vérifier si la table existe
+                If pWorkspace2.NameExists(esriDatasetType.esriDTTable, sNomTableContraintes) Then
                     'Ouvrir la table des contraintes
                     CreerNouvelleTableContraintes = pFeatureWorkspace.OpenTable(sNomTableContraintes)
-                Catch ex As Exception
-                    'On ne fait rien
-                End Try
+                End If
 
                 'Vérifier si la table est absente, on doit la créer
                 If CreerNouvelleTableContraintes Is Nothing Then
@@ -1285,6 +1385,8 @@ Public Class dckMenuContrainteIntegrite
             Throw ex
         Finally
             'Vider la mémoire
+            pWorkspace2 = Nothing
+            pWorkspace = Nothing
             pGeodatabaseType = Nothing
             pWorkspaceFactory = Nothing
             pFeatureWorkspace = Nothing
@@ -1769,6 +1871,7 @@ Public Class dckMenuContrainteIntegrite
         Dim pStandaloneTableColl As IStandaloneTableCollection = Nothing    'Interface qui permet d'extraire les StandaloneTable de la Map.
         Dim pStandaloneTable As IStandaloneTable = Nothing                  'Interface contenant une classe de données.
         Dim pDataset As IDataset = Nothing                                  'Interface contenant le nom complet de la table.
+        Dim sNomTable As String = ""                                        'Contient le nom de la table
 
         'Contient l'item à sélectionner par défaut.
         RemplirComboBoxTable = -1
@@ -1776,6 +1879,9 @@ Public Class dckMenuContrainteIntegrite
         Try
             'Initialiser le ComboBox
             qComboBox.Items.Clear()
+
+            'Ajouter le mot clé de la table des contraintes par défaut dans le ComboBox
+            qComboBox.Items.Add("CONTRAINTE_INTEGRITE_SPATIALE")
 
             'Définir la liste des StandaloneTable
             pStandaloneTableColl = CType(m_MxDocument.FocusMap, IStandaloneTableCollection)
@@ -1794,21 +1900,32 @@ Public Class dckMenuContrainteIntegrite
 
                         'Vérifier si la table contient l'attribut "REQUETES"
                         If pStandaloneTable.Table.FindField("REQUETES") >= 0 Then
+                            'Vérifier la présence de Path de la Géodatabase
+                            If pDataset.Workspace.PathName.Length = 0 Then
+                                'Définir le nom complet de la table
+                                sNomTable = pDataset.Name
+                            Else
+                                'Définir le nom complet de la table
+                                sNomTable = pDataset.Workspace.PathName & "\" & pDataset.Name
+                            End If
                             'Ajouter le StandaloneTable dans le ComboBox
-                            qComboBox.Items.Add(pDataset.Workspace.PathName & "\" & pDataset.Name)
+                            qComboBox.Items.Add(sNomTable)
 
                             'Vérifier la présence du texte recherché pour la valeur par défaut
-                            If (pDataset.Workspace.PathName & "\" & pDataset.Name).ToUpper = sTexte.ToUpper Then
+                            If sNomTable.ToUpper = sTexte.ToUpper Then
                                 'Définir la valeur par défaut
                                 RemplirComboBoxTable = qComboBox.Items.Count - 1
-
-                                'Définir la table des contraintes d'intégrité
-                                m_TableContraintes = pStandaloneTable
                             End If
                         End If
                     End If
                 End If
             Next
+
+            'Vérifier si le texte correspond à la table par défaut
+            If sTexte = "CONTRAINTE_INTEGRITE_SPATIALE" Then
+                'Contient l'item à sélectionner par défaut.
+                RemplirComboBoxTable = 0
+            End If
 
         Catch erreur As Exception
             'Message d'erreur
@@ -1849,6 +1966,12 @@ Public Class dckMenuContrainteIntegrite
             'Initialiser le ComboBox
             qComboBox.Items.Clear()
 
+            'Ajouter le mot clé de la Géodatabase PRO dans le ComboBox
+            qComboBox.Items.Add("BDRS_PRO_BDG_DBA")
+
+            'Ajouter le mot clé de la Géodatabase TST dans le ComboBox
+            qComboBox.Items.Add("BDRS_TST_BDG_DBA")
+
             'Créer une nouvelle collection de géodatabase vide
             qGeodatabaseColl = MapGeodatabaseColl(m_MxDocument.FocusMap)
 
@@ -1857,15 +1980,24 @@ Public Class dckMenuContrainteIntegrite
                 'Définir la Géodatabase
                 pWorkspace = CType(qGeodatabaseColl.Item(i), IWorkspace)
 
-                'Ajouter la Table dans le ComboBox
-                qComboBox.Items.Add(pWorkspace.PathName)
+                'Vérifier si le Path de la Géodatabase est présente
+                If pWorkspace.PathName.Length > 0 Then
+                    'Ajouter la Géodatabase dans le ComboBox
+                    qComboBox.Items.Add(pWorkspace.PathName)
 
-                'Vérifier la présence du texte recherché pour la valeur par défaut
-                If pWorkspace.PathName.ToUpper = sTexte.ToUpper Then
-                    'Définir la valeur par défaut
-                    RemplirComboBoxGeodatabase = qComboBox.Items.Count - 1
+                    'Vérifier la présence du texte recherché pour la valeur par défaut
+                    If pWorkspace.PathName.ToUpper = sTexte.ToUpper Then
+                        'Définir la valeur par défaut
+                        RemplirComboBoxGeodatabase = qComboBox.Items.Count - 1
+                    End If
                 End If
             Next
+
+            'Si le texte correspond à la Géodatabase PRO
+            If sTexte = "BDRS_PRO_BDG_DBA" Then RemplirComboBoxGeodatabase = 0
+
+            'Si le texte correspond à la Géodatabase TST
+            If sTexte = "BDRS_TST_BDG_DBA" Then RemplirComboBoxGeodatabase = 1
 
         Catch erreur As Exception
             'Message d'erreur
@@ -2094,8 +2226,14 @@ Public Class dckMenuContrainteIntegrite
             If pStandaloneTable IsNot Nothing Then
                 'Interface pour extraire le nom complet de la table
                 pDataset = CType(pStandaloneTable.Table, IDataset)
-                'Définir le nom complet de la table
-                sNomTable = pDataset.Workspace.PathName & "\" & pDataset.Name
+                'Vérifier la présence du Path de la Géodatabase
+                If pDataset.Workspace.PathName.Length = 0 Then
+                    'Définir le nom complet de la table
+                    sNomTable = pDataset.Name
+                Else
+                    'Définir le nom complet de la table
+                    sNomTable = pDataset.Workspace.PathName & "\" & pDataset.Name
+                End If
 
                 'Vérifier si la valeur pour la table des contraintes est présente
                 If treContraintes.Nodes.ContainsKey(sNomTable) Then

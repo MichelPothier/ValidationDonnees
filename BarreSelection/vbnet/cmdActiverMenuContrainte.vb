@@ -65,11 +65,6 @@ Public Class cmdActiverMenuContrainte
     End Sub
 
     Protected Overrides Sub OnUpdate()
-        'Vérifier si aucun Layer n'est présent
-        If m_MxDocument.FocusMap.LayerCount = 0 Then
-            Enabled = False
-        Else
-            Enabled = True
-        End If
+        Enabled = True
     End Sub
 End Class

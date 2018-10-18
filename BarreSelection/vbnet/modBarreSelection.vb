@@ -97,6 +97,165 @@ Module modBarreSelection
     'Public m_ActiveViewEventsItemDeleted As IActiveViewEvents_ItemDeletedEventHandler
 
     '''<summary>
+    '''Fonction qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de Géodatabase.
+    '''</summary>
+    '''
+    '''<param name="sNomGeodatabase"> Nom de la géodatabase à ouvrir.</param>
+    ''' 
+    Public Function DefinirGeodatabase(ByRef sNomGeodatabase As String) As IWorkspace
+        'Déclaration des variables de travail
+        Dim pFactoryType As Type = Nothing                      'Interface utilisé pour définir le type de géodatabase.
+        Dim pWorkspaceFactory As IWorkspaceFactory2 = Nothing   'Interface utilisé pour ouvrir la géodatabase.
+        Dim sRepArcCatalog As String = ""                       'Nom du répertoire contenant les connexions des Géodatabase .sde.
+
+        'Par défaut, aucune Géodatabase n'est retournée
+        DefinirGeodatabase = Nothing
+
+        Try
+            'Valider le paramètre de la Geodatabase
+            If sNomGeodatabase.Length > 0 Then
+                'Extraire le nom du répertoire contenant les connexions des Géodatabase .sde.
+                sRepArcCatalog = IO.Directory.GetDirectories(Environment.GetEnvironmentVariable("APPDATA"), "ArcCatalog", IO.SearchOption.AllDirectories)(0)
+
+                'Redéfinir le nom complet de la Géodatabase .sde
+                sNomGeodatabase = sNomGeodatabase.ToLower.Replace("database connections", sRepArcCatalog)
+
+                'Vérifier si le nom est une geodatabase SDE PRO prédéfinie
+                If sNomGeodatabase = "bdrs_pro_bdg_dba" Then
+                    'Définir le type de workspace : SDE
+                    pFactoryType = Type.GetTypeFromProgID("esriDataSourcesGDB.SdeWorkspaceFactory")
+
+                    'Interface pour ouvrir le Workspace
+                    pWorkspaceFactory = CType(Activator.CreateInstance(pFactoryType), IWorkspaceFactory2)
+                    Try
+                        'Ouvrir le workspace de la Géodatabase
+                        DefinirGeodatabase = pWorkspaceFactory.OpenFromString("INSTANCE=sde:oracle11g:bdrs_pro;USER=BDG_DBA;PASSWORD=123bdg_dba;VERSION=sde.DEFAULT", 0)
+                    Catch ex As Exception
+                        'Retourner l'erreur
+                        Throw New Exception(ex.Message & vbCrLf & "ERREUR : Incapable d'ouvrir la Géodatabase : " & sNomGeodatabase)
+                    End Try
+
+                    'Vérifier si le nom est une geodatabase SDE TST prédéfinie
+                ElseIf sNomGeodatabase = "bdrs_tst_bdg_dba" Then
+                    'Définir le type de workspace : SDE
+                    pFactoryType = Type.GetTypeFromProgID("esriDataSourcesGDB.SdeWorkspaceFactory")
+                    'Interface pour ouvrir le Workspace
+                    pWorkspaceFactory = CType(Activator.CreateInstance(pFactoryType), IWorkspaceFactory2)
+                    Try
+                        'Ouvrir le workspace de la Géodatabase
+                        DefinirGeodatabase = pWorkspaceFactory.OpenFromString("INSTANCE=sde:oracle11g:bdrs_tst;USER=BDG_DBA;PASSWORD=tst;VERSION=sde.DEFAULT", 0)
+                    Catch ex As Exception
+                        'Retourner l'erreur
+                        Throw New Exception(ex.Message & vbCrLf & "ERREUR : Incapable d'ouvrir la Géodatabase : " & sNomGeodatabase)
+                    End Try
+
+                    'Vérifier si le nom est une geodatabase SDE
+                ElseIf IO.Path.GetExtension(sNomGeodatabase) = ".sde" Then
+                    'Définir le type de workspace : SDE
+                    pFactoryType = Type.GetTypeFromProgID("esriDataSourcesGDB.SdeWorkspaceFactory")
+                    'Interface pour ouvrir le Workspace
+                    pWorkspaceFactory = CType(Activator.CreateInstance(pFactoryType), IWorkspaceFactory2)
+                    Try
+                        'Ouvrir le workspace de la Géodatabase
+                        DefinirGeodatabase = pWorkspaceFactory.OpenFromFile(sNomGeodatabase, 0)
+                    Catch ex As Exception
+                        'Retourner l'erreur
+                        Throw New Exception(ex.Message & vbCrLf & "ERREUR : Incapable d'ouvrir la Géodatabase : " & sNomGeodatabase)
+                    End Try
+
+                    'Si la Geodatabse est une File Geodatabase
+                ElseIf sNomGeodatabase.Contains(".gdb") Then
+                    'Définir le type de workspace : SDE
+                    pFactoryType = Type.GetTypeFromProgID("esriDataSourcesGDB.FileGDBWorkspaceFactory")
+                    'Interface pour ouvrir le Workspace
+                    pWorkspaceFactory = CType(Activator.CreateInstance(pFactoryType), IWorkspaceFactory2)
+                    Try
+                        'Ouvrir le workspace de la Géodatabase
+                        DefinirGeodatabase = pWorkspaceFactory.OpenFromFile(sNomGeodatabase, 0)
+                    Catch ex As Exception
+                        'Retourner l'erreur
+                        Throw New Exception(ex.Message & vbCrLf & "ERREUR : Incapable d'ouvrir la Géodatabase : " & sNomGeodatabase)
+                    End Try
+
+                    'Si la Geodatabse est une personnelle Geodatabase
+                ElseIf sNomGeodatabase.Contains(".mdb") Then
+                    'Définir le type de workspace : SDE
+                    pFactoryType = Type.GetTypeFromProgID("esriDataSourcesGDB.AccessWorkspaceFactory")
+                    'Interface pour ouvrir le Workspace
+                    pWorkspaceFactory = CType(Activator.CreateInstance(pFactoryType), IWorkspaceFactory2)
+                    Try
+                        'Ouvrir le workspace de la Géodatabase
+                        DefinirGeodatabase = pWorkspaceFactory.OpenFromFile(sNomGeodatabase, 0)
+                    Catch ex As Exception
+                        'Retourner l'erreur
+                        Throw New Exception(ex.Message & vbCrLf & "ERREUR : Incapable d'ouvrir la Géodatabase : " & sNomGeodatabase)
+                    End Try
+
+                    'Sinon
+                Else
+                    'Retourner l'erreur
+                    Err.Raise(-1, , "ERREUR : Le nom de la Géodatabase ne correspond pas à une Geodatabase !")
+                End If
+            End If
+
+        Catch ex As Exception
+            'Retourner l'erreur
+            Throw ex
+        Finally
+            'Vider la mémoire
+            pFactoryType = Nothing
+            pWorkspaceFactory = Nothing
+        End Try
+    End Function
+
+    '''<summary>
+    '''Fonction qui permet d'ouvrir et retourner une table attributive (sans géométrie) à partir d'une Geodatabase et d'un nom de table.
+    '''</summary>
+    '''
+    '''<param name="pGeodatabase"> Interface contenant la Géodatabase dans laquelle la table attributive doit être ouverte.</param>
+    '''<param name="sNomTable"> Nom de la table attributive à ouvrir.</param>
+    ''' 
+    ''' <returns>IStandaloneTable contenant la table attributive sinon Nothing.</returns>
+    ''' 
+    Public Function DefinirStandaloneTable(ByVal pGeodatabase As IWorkspace2, ByVal sNomTable As String) As IStandaloneTable
+        'Déclaration des variables de travail
+        Dim pFeatureworkspace As IFeatureWorkspace = Nothing    'Interface utilisé pour ouvrir la table dans la géodatabase.
+        Dim pTable As ITable = Nothing                          'Interface contenant la table attributive.
+
+        'Par défaut, aucune table attributive n'est retournée
+        DefinirStandaloneTable = Nothing
+
+        Try
+            'Vérifier si la Géodatabase est valide
+            If pGeodatabase IsNot Nothing Then
+                'Vérifier si la table existe
+                If pGeodatabase.NameExists(esriDatasetType.esriDTTable, sNomTable) Then
+                    'Interface pour ouvrir la table attributive
+                    pFeatureworkspace = CType(m_Geodatabase, IFeatureWorkspace)
+
+                    'Ouvrir la table attributive
+                    pTable = CType(pFeatureworkspace.OpenTable(sNomTable), ITable)
+
+                    'Vérifier si la table est valide
+                    If pTable IsNot Nothing Then
+                        'Définir la table attributive
+                        DefinirStandaloneTable = New StandaloneTable
+                        DefinirStandaloneTable.Table = pTable
+                    End If
+                End If
+            End If
+
+        Catch ex As Exception
+            'Retourner l'erreur
+            Throw ex
+        Finally
+            'Vider la mémoire
+            pFeatureworkspace = Nothing
+            pTable = Nothing
+        End Try
+    End Function
+
+    '''<summary>
     '''Fonction qui permet de retourner l'interface d'édition de ArcMap.
     '''</summary>
     '''

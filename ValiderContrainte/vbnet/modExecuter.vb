@@ -114,7 +114,8 @@ Module modExecuter
 
         Catch ex As Exception
             'Afficher l'erreur
-            Console.WriteLine(ex.Message)
+            Console.WriteLine(ex.Message & vbCrLf & ex.StackTrace)
+
             'Écrire le message d'erreur
             'File.AppendAllText("D:\Erreur_" & System.DateTime.Now.ToString("yyyyMMdd_HHmmss") & ".log", ex.Message & vbCrLf)
             'Retourner le code d'échec du traitement

@@ -31,7 +31,7 @@
         <Button id="MPO_BarreSelection_cmdAfficherZ" class="cmdAfficherZ" message="Afficher le Z des extrémités d'éléments à partir des valeurs d'élévation présentes sur les MNE visibles." caption="Afficher le Z" tip="Afficher le Z des extrémités d'éléments" category="MPO-BarreSelection" image="Images\cmdAfficherZ.png" onDemand="false" />
       </Commands>
       <Toolbars>
-        <Toolbar id="MPO_BarreSelection_MPO-BarreSelection" caption="MPO-BarreSelection (19 septembre 2017)" showInitially="false">
+        <Toolbar id="MPO_BarreSelection_MPO-BarreSelection" caption="MPO-BarreSelection (04 Octobre 2018)" showInitially="false">
           <Items>
             <Button refID="MPO_BarreSelection_cmdActiverMenuContrainte" />
             <Button refID="MPO_BarreSelection_cmdActiverMenu" />

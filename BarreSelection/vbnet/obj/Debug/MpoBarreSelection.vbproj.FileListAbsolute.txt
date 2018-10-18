@@ -1,0 +1,12 @@
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\bin\Debug\BarreSelection.dll
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\bin\Debug\BarreSelection.pdb
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\bin\Debug\BarreSelection.xml
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\obj\Debug\BarreSelection.dckMenuContrainteIntegrite.resources
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\obj\Debug\BarreSelection.dckMenuSelection.resources
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\obj\Debug\BarreSelection.InputBoxForm.resources
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\obj\Debug\BarreSelection.Resources.resources
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\obj\Debug\MpoBarreSelection.vbproj.GenerateResource.Cache
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\obj\Debug\BarreSelection.dll
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\obj\Debug\BarreSelection.xml
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\obj\Debug\BarreSelection.pdb
+C:\mpo\ArcGis10.5\MpoBarreSelection\net\bin\Debug\BarreSelection.esriAddIn

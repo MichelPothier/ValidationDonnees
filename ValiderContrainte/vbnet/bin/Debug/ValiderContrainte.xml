@@ -224,7 +224,7 @@ Fonction qui permet de retourner l'angle saillant (0-180 degré) entre deux segm
 </member><member name="M:ValiderContrainte.clsDistanceGeometrie.TraiterDistanceLateraleTopologie(System.Double,ESRI.ArcGIS.Geodatabase.ITopologyGraph4@,ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont ses sommets se retrouvent à l'intérieur 
- de la distance latérale (Douglass-Peuker) en tenant compte des éléments en relations contenus dans la Topologie.
+ de la distance latérale (Douglass-Peuker) en tenant compte des éléments en relations contenus dans la topologie et le découpage.
  
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
@@ -237,11 +237,12 @@ Fonction qui permet de retourner l'angle saillant (0-180 degré) entre deux segm
 		<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
 		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
 		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
+		<return>Les géométries des erreurs.</return>
 	</summary>
 </member><member name="M:ValiderContrainte.clsDistanceGeometrie.TraiterDistanceLateraleMinimum(System.Double,ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
- Routine qui permet de sélectionner les éléments du FeatureLayer dont ses sommets respecte ou non la distance latérale minimum (Douglass-Peuker).
+ Routine qui permet de sélectionner les éléments du FeatureLayer dont ses sommets se retrouvent à l'intérieur 
+ de la distance latérale (Douglass-Peuker) en tenant compte du découpage seulement.
  
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
@@ -271,10 +272,10 @@ Fonction qui permet de retourner l'angle saillant (0-180 degré) entre deux segm
 		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
 		<return>Les géométries des éléments sélectionnés.</return>
 	</summary>
-</member><member name="M:ValiderContrainte.clsDistanceGeometrie.TraiterDistanceLongitudinaleMinimum(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+</member><member name="M:ValiderContrainte.clsDistanceGeometrie.TraiterDistanceLongitudinaleTopologie(System.Double,ESRI.ArcGIS.Geodatabase.ITopologyGraph4@,ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
- Routine qui permet de sélectionner les éléments du FeatureLayer dont la distance longitudinale minimum de la géométrie
- respecte ou non l'expression régulière spécifiée.
+ Routine qui permet de sélectionner les éléments du FeatureLayer dont la longueur des droites se retrouvent à l'intérieur 
+ de la distance longitudinale en tenant compte des éléments en relations contenus dans la topologie et le découpage.
  
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
@@ -282,7 +283,26 @@ Fonction qui permet de retourner l'angle saillant (0-180 degré) entre deux segm
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
  
-<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
+<param name="dDistance"> Distance longitudinale à vérifier.</param>
+		<param name="pTopologyGraph"> Interface contenant la topologie.</param>
+		<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
+		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+		<return>Les géométries des éléments sélectionnés.</return>
+	</summary>
+</member><member name="M:ValiderContrainte.clsDistanceGeometrie.TraiterDistanceLongitudinaleMinimum(System.Double,ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+	<summary>
+ Routine qui permet de sélectionner les éléments du FeatureLayer dont la longueur des droites se retrouvent à l'intérieur 
+ de la distance longitudinale en tenant compte du découpage seulement.
+ 
+ Seuls les éléments sélectionnés sont traités.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+ bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
+ bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+ 
+<param name="dDistance"> Distance longitudinale à vérifier.</param>
+		<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
 		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
 		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
 		<return>Les géométries des éléments sélectionnés.</return>
@@ -422,6 +442,7 @@ Fonction qui permet de retourner l'angle saillant (0-180 degré) entre deux segm
 </member><member name="M:ValiderContrainte.clsSuperficieGeometrie.TraiterSuperficieAnneauMinimum(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont la superficie des anneaux (extérieurs ou intérieurs) respecte ou non l'expression régulière spécifiée.
+</summary>
  
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
@@ -430,14 +451,14 @@ Fonction qui permet de retourner l'angle saillant (0-180 degré) entre deux segm
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
  
 <param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsSuperficieGeometrie.TraiterSuperficieExterieurMinimum(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont la superficie des anneaux extérieurs respecte ou non l'expression régulière spécifiée.
- 
+</summary>
+
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
  
@@ -445,10 +466,9 @@ Fonction qui permet de retourner l'angle saillant (0-180 degré) entre deux segm
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
  
 <param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsSuperficieGeometrie.TraiterSuperficieInterieurMinimum(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont la superficie des anneaux intérieurs respecte ou non l'expression régulière spécifiée.
@@ -805,6 +825,20 @@ Fonction qui permet de retourner l'angle saillant (0-180 degré) entre deux segm
 <param name="pFeatureLayerDecoupage">Interface contenant les élements de découpage sélectionnés.</param>
 		<return>IPolyline contenant la les limites de découpage des éléments sélectionner dans le Layer de découpage, Vide si aucun sélectionné.</return>
 	</summary>
+</member><member name="M:ValiderContrainte.clsValeurAttribut.DefinirTable(System.String,System.String,System.String)">
+	<summary>
+Fonction qui permet de définir une table contenue dans une géodatabase.
+</summary>
+	<param name="sNomTable"> Nom complet de la table incluant le nom de la géodatabase.</param>
+	<param name="sNomGeodatabaseDefaut"> Contient le nom de la Géodatabase Enterprise par défaut.</param>
+	<param name="sNomProprietaireDefaut"> Contient le nom du propriétaire des tables par défaut pour les Géodatabase Enterprise.</param>
+	<returns>ITable contenant la table, sinon Nothing.</returns>
+</member><member name="M:ValiderContrainte.clsValeurAttribut.DefinirGeodatabase(System.String)">
+	<summary>
+Fonction qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de Géodatabase.
+</summary>
+	<param name="sNomGeodatabase"> Nom de la géodatabase à ouvrir.</param>
+	<returns>IWorkspace contenant la géodatabase.</returns>
 </member><member name="M:ValiderContrainte.clsValeurAttribut.Selectionner(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont la valeur d'attribut respecte ou non l'expression régulière spécifiée.
@@ -1292,7 +1326,7 @@ Fonction qui permet de créer un nouveau FeatureLayer contenant une FeatureClass
 	<param name="pFeatureLayer">Interface ESRI contenant le FeatureLayer de sélection.</param>
 	<param name="sNomLayer">Nom du nouveau Layer à Créer.</param>
 	<returns>"IFeatureLayer" contenant seulement les éléments sélectionnés en mémoire.</returns>
-</member><member name="M:ValiderContrainte.clsContrainte.CreerFeatureLayer(System.String,ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,ESRI.ArcGIS.Geometry.ISpatialReference,ESRI.ArcGIS.Geodatabase.IQueryFilter)">
+</member><member name="M:ValiderContrainte.clsContrainte.CreerFeatureLayer(System.String,ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,ESRI.ArcGIS.Geometry.ISpatialReference,ESRI.ArcGIS.Geodatabase.IQueryFilter,System.String)">
 	<summary>
 Fonction qui permet de créer un FeatureLayer contenant ou non une condition attributive.
 </summary>
@@ -1300,6 +1334,8 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 	<param name="pFeatureWorkspace">Interface utilisé pour ouvrir une classe dans la Géodatabase.</param>
 	<param name="pSpatialReference">Interface contenant la référence spatiale de traitement.</param>
 	<param name="pQueryFilter">Interface utilisé pour sélectionner seulement les éléments du découpage.</param>
+	<param name="sNomProprietaireDefaut"> Contient le nom du propriétaire des tables par défaut pour les Géodatabase Enterprise.</param>
+	<returns>IFeatureLayer contenant la classe à traiter avec sa requête attributive si spécifiée.</returns>
 </member><member name="T:ValiderContrainte.clsContrainte">
 	<summary>
  Classe générique qui permet de gérer une contrainte d'intégrité quelconque.
@@ -1953,20 +1989,22 @@ Routine qui permet de définir la table contenant les contraintes d'intégrité 
 </summary>
 	<param name="sNomTableContraintes"> Nom de la tables contenant les contraintes d'intégrité.</param>
 	<param name="pMap"> Map active dans laquelle la table des contraintes est présentes.</param>
-</member><member name="M:ValiderContrainte.clsTableContraintes.DefinirTableContraintes(System.String,System.String)">
+</member><member name="M:ValiderContrainte.clsTableContraintes.DefinirTableContraintes(System.String,System.String,System.String)">
 	<summary>
 Routine qui permet de définir la table contenant les contraintes d'intégrité dans un StandaloneTable.
 </summary>
 	<param name="sNomTableContraintes"> Nom de la tables contenant les contraintes d'intégrité.</param>
 	<param name="sFiltreContraintes"> Filtre à appliquer sur les contraintes d'intégrité.</param>
-</member><member name="M:ValiderContrainte.clsTableContraintes.DefinirTableStatistiques(System.String)">
+	<param name="sNomProprietaireDefaut"> Contient le nom du propriétaire des tables par défaut pour les Géodatabase Enterprise.</param>
+</member><member name="M:ValiderContrainte.clsTableContraintes.DefinirTableStatistiques(System.String,System.String)">
 	<summary>
 Routine qui permet de définir la table contenant les statistiques d'erreurs et de traitement.
 </summary>
 	<param name="sNomTableStatistiques"> Nom de la table contenant les statistiques d'erreurs et de traitement.</param>
+	<param name="sNomProprietaireDefaut"> Contient le nom du propriétaire des tables par défaut pour les Géodatabase Enterprise.</param>
 </member><member name="M:ValiderContrainte.clsTableContraintes.DefinirGeodatabase(System.String@)">
 	<summary>
-Routine qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de Géodatabase.
+Fonction qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de Géodatabase.
 </summary>
 	<param name="sNomGeodatabase"> Nom de la géodatabase à ouvrir.</param>
 </member><member name="M:ValiderContrainte.clsTableContraintes.SelectionnerContraintes(System.Windows.Forms.TreeNode,ESRI.ArcGIS.Carto.IMap)">
@@ -2002,7 +2040,7 @@ Routine qui permet de sélectionner une contrainte de la table à partir d'un No
  Routine qui permet d'écrire le message d'exécution dans un RichTextBox, un fichier journal/Rapport et/ou dans la console.
 </summary>
 	<param name="sMessage"> Message à écrire dans un RichTextBox, un fichier journal et/ou dans la console.</param>
-</member><member name="M:ValiderContrainte.clsTableContraintes.CreerFeatureLayer(System.String,ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,ESRI.ArcGIS.Geometry.ISpatialReference,ESRI.ArcGIS.Geodatabase.IQueryFilter)">
+</member><member name="M:ValiderContrainte.clsTableContraintes.CreerFeatureLayer(System.String,ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,ESRI.ArcGIS.Geometry.ISpatialReference,ESRI.ArcGIS.Geodatabase.IQueryFilter,System.String)">
 	<summary>
 Fonction qui permet de créer un FeatureLayer contenant ou non une condition attributive.
 </summary>
@@ -2010,6 +2048,8 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 	<param name="pFeatureWorkspace">Interface utilisé pour ouvrir une classe dans la Géodatabase.</param>
 	<param name="pSpatialReference">Interface contenant la référence spatiale de traitement.</param>
 	<param name="pQueryFilter">Interface utilisé pour sélectionner seulement les éléments du découpage.</param>
+	<param name="sNomProprietaireDefaut"> Contient le nom du propriétaire des tables par défaut pour les Géodatabase Enterprise.</param>
+	<returns>IFeatureLayer contenant la classe à traiter avec sa requête attributive si spécifiée.</returns>
 </member><member name="T:ValiderContrainte.clsTableContraintes">
 	<summary>
  Classe générique qui permet de gérer une table de contraintes d'intégrité à appliquer.
@@ -2051,6 +2091,10 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 	<summary>
  Propriété qui permet de retourner le nom de la contrainte d'intégrité à traiter.
 </summary>
+</member><member name="P:ValiderContrainte.clsLongueurGeometrie.Parametres">
+	<summary>
+ Propriété qui permet de définir et retourner la ligne de paramètre à traiter.
+</summary>
 </member><member name="M:ValiderContrainte.clsLongueurGeometrie.ListeParametres">
 	<summary>
  Fonction qui permet de retourner la liste des paramètres possibles.
@@ -2081,9 +2125,77 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
 		<return>Les géométries des éléments sélectionnés.</return>
 	</summary>
+</member><member name="M:ValiderContrainte.clsLongueurGeometrie.TraiterLongueurEdgeMinimum(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.Geodatabase.ITopologyGraph4@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+	<summary>
+ Routine qui permet de sélectionner les éléments du FeatureLayer dont la longueur des Edges respecte ou non la longueur minimale spécifiée.
+ 
+ Seuls les éléments sélectionnés sont traités.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+ bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
+ bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+ 
+<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
+		<param name="pTopologyGraph"> Interface contenant la topologie.</param>
+		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+		<return>Les géométries des éléments sélectionnés.</return>
+	</summary>
+</member><member name="M:ValiderContrainte.clsLongueurGeometrie.CorrigerLongueurLignesElement(ESRI.ArcGIS.Geodatabase.ITopologyGraph,ESRI.ArcGIS.Geodatabase.IFeature,System.Double,ESRI.ArcGIS.Geometry.IPolyline@)">
+	<summary>
+ Fonction qui permet de corriger la longueur des lignes d'un élément selon une longueur minimale 
+ et selon la topologie des éléments afin de conserver la connexion entre les éléments. 
+</summary>
+	<param name="pTopologyGraph"> Contient la topologie des éléments à traiter afin de conserver la connexion avec l'élément.</param>
+	<param name="pFeature"> Contient l'élément à traiter.</param>
+	<param name="dLongMin"> Contient la longueur minimale utilisée pour identifier et corriger les droites en trop dans la géométrie d'un élément.</param>
+	<param name="pLigneErreur"> Interface contenant les erreurs dans la géométrie de l'élément.</param>
+	<returns>Boolean qui indique si une modification a été effectuée sur la géométrie de l'élément.</returns>
+</member><member name="M:ValiderContrainte.clsLongueurGeometrie.CorrigerLongueurLignesGeometrie(ESRI.ArcGIS.Geodatabase.ITopologyGraph,ESRI.ArcGIS.Geodatabase.IEnumTopologyEdge,System.Double,ESRI.ArcGIS.Geometry.IPolyline@)">
+	<summary>
+ Fonction qui permet de corriger la longueur des lignes d'une géométrie selon une longueur minimale 
+ et selon la topologie des éléments afin de conserver la connexion entre les éléments. 
+</summary>
+	<param name="pTopologyGraph"> Contient la topologie des éléments à traiter afin de conserver la connexion avec l'élément.</param>
+	<param name="pEnumTopoEdge"> Interface contenant les Edges de la topologie de l'élément à traiter.</param>
+	<param name="dLongMin"> Contient la longueur minimale utilisée pour identifier et corriger les droites en trop dans la géométrie d'un élément.</param>
+	<param name="pLigneErreur"> Interface contenant les erreurs dans la géométrie de l'élément.</param>
+	<returns>Boolean qui indique si une modification a été effectuée sur la géométrie de l'élément.</returns>
+</member><member name="M:ValiderContrainte.clsLongueurGeometrie.TraiterNoeudIntersection(System.Double,ESRI.ArcGIS.Geodatabase.ITopologyGraph,ESRI.ArcGIS.Geodatabase.ITopologyNode,ESRI.ArcGIS.Geometry.IPolyline,Microsoft.VisualBasic.Collection)">
+	<summary>
+ Routine qui permet de traiter un noeud d'intersection afin de conserver l'extrémité la plus longue. 
+</summary>
+	<param name="dLongMin"> Contient la longueur minimale utilisée pour identifier et corriger les droites en trop dans la géométrie d'un élément.</param>
+	<param name="pTopologyGraph"> Interface contenant la topologie.</param>
+	<param name="pTopoNode"> Interface contenant le noeud d'intersection.</param>
+	<param name="pLigneEdges"> Interface contenant la ligne des Edges continus.</param>
+	<param name="pCollEdges"> Collection des Edges de la ligne continue.</param>
+</member><member name="M:ValiderContrainte.clsLongueurGeometrie.InitEdgesVisiter(Microsoft.VisualBasic.Collection,System.Boolean)">
+	<summary>
+ Routine qui permet d'initialiser l'attribut "Visited=False" pour tous les Edges. 
+</summary>
+	<param name="pCollEdges"> Collection des Edges de la ligne continue.</param>
+	<param name="bValeur"> Contient la valeur d'initialisation, Faux par défaut.</param>
+</member><member name="M:ValiderContrainte.clsLongueurGeometrie.IdentifierLigneEdge(ESRI.ArcGIS.Geodatabase.ITopologyNode,ESRI.ArcGIS.Geodatabase.ITopologyEdge,ESRI.ArcGIS.Geometry.IPolyline@,Microsoft.VisualBasic.Collection@,ESRI.ArcGIS.Geodatabase.ITopologyNode@,System.Boolean,System.Boolean)">
+	<summary>
+ Routine qui permet d'identifier tous les Edges d'une lignes continue. 
+</summary>
+	<param name="pTopoNodeDebut"> Interface contenant le noeud d'intersection de début.</param>
+	<param name="pTopoEdge"> Interface contenant le Edge à traiter.</param>
+	<param name="pLigneEdges"> Interface contenant la ligne des Edges continus.</param>
+	<param name="pCollEdges"> Collection des Edges de la ligne continue.</param>
+	<param name="pTopoNodeFin"> Interface contenant le noeud d'intersection de fin.</param>
+	<param name="bVisiter"> Indiquer si on doit indiquer si le Edge a été visité.</param>
+	<param name="bInitialiser"> Indiquer si on doit indiquer si le Edge a été visité.</param>
+</member><member name="M:ValiderContrainte.clsLongueurGeometrie.SelectionnerEdges(ESRI.ArcGIS.Geodatabase.ITopologyGraph,Microsoft.VisualBasic.Collection)">
+	<summary>
+ Routine qui permet de sélectionner tous les Edges d'une lignes continue. 
+</summary>
+	<param name="pTopologyGraph"> Interface contenant la topologie.</param>
+	<param name="pCollEdges"> Collection des Edges de la ligne continue.</param>
 </member><member name="M:ValiderContrainte.clsLongueurGeometrie.TraiterLongueurTotaleMinimum(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
- Routine qui permet de sélectionner les éléments du FeatureLayer dont la longueur totale respecte ou non l'expression régulière spécifiée.
+ Routine qui permet de sélectionner les éléments du FeatureLayer dont la longueur totale respecte ou non la longueur minimale spécifiée.
  
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
@@ -2098,7 +2210,7 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 	</summary>
 </member><member name="M:ValiderContrainte.clsLongueurGeometrie.TraiterLongueurComposanteMinimum(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
- Routine qui permet de sélectionner les éléments du FeatureLayer dont la longueur des composantes respecte ou non l'expression régulière spécifiée.
+ Routine qui permet de sélectionner les éléments du FeatureLayer dont la longueur des composantes respecte ou non la longueur minimale spécifiée.
  
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
@@ -2113,7 +2225,7 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 	</summary>
 </member><member name="M:ValiderContrainte.clsLongueurGeometrie.TraiterLongueurSegmentMinimum(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
- Routine qui permet de sélectionner les éléments du FeatureLayer dont la longueur des segments respecte ou non l'expression régulière spécifiée.
+ Routine qui permet de sélectionner les éléments du FeatureLayer dont la longueur des segments respecte ou non la longueur minimale spécifiée.
  
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
@@ -2494,9 +2606,37 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
 		<return>Les géométries des éléments sélectionnés.</return>
 	</summary>
+</member><member name="M:ValiderContrainte.clsComparerElement.TraiterLienGeometrieAttribut(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+	<summary>
+ Routine qui permet de sélectionner les éléments du FeatureLayer qui respecte ou non la comparaison avec ses éléments en relation de lien de géométrie et attribut.
+ 
+ Seuls les éléments sélectionnés sont traités.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+ bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
+ bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+ 
+<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+		<return>Les géométries des éléments qui respectent ou non la comparaison avec ses éléments en relation.</return>
+	</summary>
 </member><member name="M:ValiderContrainte.clsComparerElement.TraiterLienGeometrie(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer qui respecte ou non la comparaison avec ses éléments en relation de lien de géométrie.
+ 
+ Seuls les éléments sélectionnés sont traités.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+ bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
+ bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+ 
+<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+		<return>Les géométries des éléments qui respectent ou non la comparaison avec ses éléments en relation.</return>
+	</summary>
+</member><member name="M:ValiderContrainte.clsComparerElement.TraiterLienCentreGeometrie(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+	<summary>
+ Routine qui permet de sélectionner les éléments du FeatureLayer qui respecte ou non la comparaison avec ses éléments en relation de lien du centre de la géométrie.
  
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
@@ -2522,6 +2662,18 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
 		<return>Les géométries des éléments qui respectent ou non la comparaison avec ses éléments en relation.</return>
 	</summary>
+</member><member name="M:ValiderContrainte.clsComparerElement.LireCentreGeometrie(ESRI.ArcGIS.Carto.IFeatureLayer@,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[]@,System.Double)">
+	<summary>
+ Routine qui permet de lire le centre des géométries et les OIDs des éléments d'un FeatureLayer.
+ 
+ Seuls les éléments sélectionnés sont lus.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+</summary>
+	<param name="pFeatureLayer"> Interface contenant les éléments à lire.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomColl"> Interface contenant les géométries des éléments lus.</param>
+	<param name="iOid"> Vecteur des OIDs d'éléments lus.</param>
+	<param name="dTol"> Tolérance utilisée pour créer un tampon autour du cente de la géométrie.</param>
 </member><member name="M:ValiderContrainte.clsComparerElement.LireElementLienAttribut(ESRI.ArcGIS.Carto.IFeatureLayer@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.String)">
 	<summary>
  Routine qui permet de lire les éléments d'un FeatureLayer et de les conserver par lien d'attribut et ObjectId.
@@ -2534,6 +2686,38 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 		<param name="sNomAttributLien"> Nom de l'attribut utilisé pour conserver le lien.</param>
 		<return> Dictionary(Of String, IFeature) contenant les éléments par lien.</return>
 	</summary>
+</member><member name="M:ValiderContrainte.clsComparerElement.DefinirListeAttribut(ESRI.ArcGIS.Geodatabase.IFields,ESRI.ArcGIS.Geodatabase.IFields,System.String,System.Boolean,System.Collections.Generic.List{System.Int32}@,System.Collections.Generic.List{System.Int32}@,System.Boolean@)">
+	<summary>
+ Routine qui permet de définir les positions des attributs à comparer et indiquer si la géométrie doit être comparée.
+</summary>
+ 
+ Les OID et les géométries sont toujours exclus.
+ 
+ Seuls les éléments sélectionnés sont lus.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+<param name="pFields"> Interface contenant les attribut des éléments à traiter.</param>
+	<param name="pFieldsRel"> Interface contenant les attribut des éléments à comparer.</param>
+	<param name="sListeAttribut"> Contient les noms des attributs à comparer.</param>
+	<param name="bExclure"> Indique les noms des attributs à comparer doivent être exclus ou non.</param>
+	<param name="iListSel"> Liste des positions d'attributs pour le Layer à traiter.</param>
+	<param name="iListRel"> Liste des positions d'attributs pour le Layer à comparer.</param>
+	<param name="bGeometrie"> Indique si la géométrie doit être comparée ou non.</param>
+</member><member name="M:ValiderContrainte.clsComparerElement.ComparerAttributElement(ESRI.ArcGIS.Geodatabase.IFeature,ESRI.ArcGIS.Geodatabase.IFeature,System.Collections.Generic.List{System.Int32},System.Collections.Generic.List{System.Int32})">
+	<summary>
+ Fonction qui permet de comparer les attributs spécifiés entre deux éléments.
+</summary>
+ 
+ Les OID et les géométries sont toujours exclus.
+ 
+ Seuls les éléments sélectionnés sont lus.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+<param name="pFeature"> Interface contenant l'élément à traiter.</param>
+	<param name="pFeatureRel"> Interface contenant l'élément à comparer.</param>
+	<param name="iListPosAttSel"> Liste des positions d'attributs pour le Layer à traiter.</param>
+	<param name="iListPosAttRel"> Liste des positions d'attributs pour le Layer à comparer.</param>
+	<return> String contenant le résultat de la comparaison.</return>
 </member><member name="M:ValiderContrainte.clsComparerElement.ComparerAttributElement(ESRI.ArcGIS.Geodatabase.IFeature,ESRI.ArcGIS.Geodatabase.IFeature,System.String)">
 	<summary>
  Routine qui permet de comparer tous les attributs qui ne sont pas exclut entre deux éléments.
@@ -2597,35 +2781,45 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 	<summary>Contient l'équidistance des courbes de niveau Intermediaire.</summary>
 </member><member name="F:ValiderContrainte.clsEquidistanceCourbe.gnValeurCourbeIntercalaire">
 	<summary>Contient l'équidistance des courbes de niveau Intercalaire.</summary>
+</member><member name="F:ValiderContrainte.clsEquidistanceCourbe.gsAttDecoupage">
+	<summary>Contient le nom de l'attribut de découpage.</summary>
+</member><member name="F:ValiderContrainte.clsEquidistanceCourbe.gnPosAttDecoupage">
+	<summary>Contient la position de l'attribut de découpage.</summary>
+</member><member name="F:ValiderContrainte.clsEquidistanceCourbe.gsTblEquidistance">
+	<summary>Contient le nom de la table des équidistances.</summary>
+</member><member name="F:ValiderContrainte.clsEquidistanceCourbe.gpTblEquidistance">
+	<summary>Contient la table des équidistances.</summary>
+</member><member name="F:ValiderContrainte.clsEquidistanceCourbe.gsAttIdentifiant">
+	<summary>Contient le nom de l'attribut d'identifiant.</summary>
+</member><member name="F:ValiderContrainte.clsEquidistanceCourbe.gnPosAttIdentifiant">
+	<summary>Contient la position de l'attribut d'identifiant.</summary>
+</member><member name="T:ValiderContrainte.clsEquidistanceCourbe.Structure_Equidistance">
+	<summary>Structure contenant une équidistance d'un identifiant à valider.</summary>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.#ctor">
 	<summary>
  Routine qui permet d'instancier la classe en objet avec les valeurs par défaut.
- 
 </summary>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.#ctor(ESRI.ArcGIS.Carto.IMap@,ESRI.ArcGIS.Carto.IFeatureLayer@,System.String,System.String)">
 	<summary>
  Routine qui permet d'instancier la classe en objet.
- 
-<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
-		<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
-		<param name="sNomAttribut"> Nom de l'attribut à traiter.</param>
-		<param name="sExpression"> Expression régulière à traiter.</param>
-	</summary>
+</summary>
+	<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
+	<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
+	<param name="sNomAttribut"> Nom de l'attribut à traiter.</param>
+	<param name="sExpression"> Expression régulière à traiter.</param>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.#ctor(ESRI.ArcGIS.Carto.IFeatureLayer@,System.String)">
 	<summary>
  Routine qui permet d'instancier la classe en objet.
- 
-<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
-		<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
-	</summary>
+</summary>
+	<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
+	<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.#ctor(ESRI.ArcGIS.Carto.IMap@,ESRI.ArcGIS.Carto.IFeatureLayer@,System.String)">
 	<summary>
  Routine qui permet d'instancier la classe en objet.
- 
-<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
-		<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
-		<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
-	</summary>
+</summary>
+	<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
+	<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
+	<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
 </member><member name="P:ValiderContrainte.clsEquidistanceCourbe.Nom">
 	<summary>
  Propriété qui permet de retourner le nom de la contrainte d'intégrité à traiter.
@@ -2638,30 +2832,32 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 	<summary>
  Fonction qui permet de retourner la liste des paramètres possibles.
 </summary>
+</member><member name="M:ValiderContrainte.clsEquidistanceCourbe.EstValide">
+	<summary>
+ Routine qui permet d'indiquer si les traitement à effectuer est valide.
+ 
+<return>Boolean qui indique si les traitement à effectuer est valide.</return>
+	</summary>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.FeatureClassValide">
 	<summary>
  Routine qui permet d'indiquer si la FeatureClass est valide.
- 
-<return>Boolean qui indique si la FeatureClass est valide.</return>
-	</summary>
+</summary>
+	<return>Boolean qui indique si la FeatureClass est valide.</return>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.AttributValide">
 	<summary>
  Routine qui permet d'indiquer si l'attribut est valide.
- 
-<return>Boolean qui indique si l'attribut est valide.</return>
-	</summary>
+</summary>
+	<return>Boolean qui indique si l'attribut est valide.</return>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.ExpressionValide">
 	<summary>
  Routine qui permet d'indiquer si l'expression utilisée pour extraire l'élément de découpage est valide.
- 
-<return>Boolean qui indique si l'expression est valide.</return>
-	</summary>
+</summary>
+	<return>Boolean qui indique si l'expression est valide.</return>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.FeatureLayersRelationValide">
 	<summary>
  Routine qui permet d'indiquer si le FeatureLayer est valide.
- 
-<return>Boolean qui indique si le FeatureLayer est valide.</return>
-	</summary>
+</summary>
+	<return>Boolean qui indique si le FeatureLayer est valide.</return>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.Selectionner(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont l'identifiant ou la géométrie de découpage sont invalides.
@@ -2671,11 +2867,75 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
+</member><member name="M:ValiderContrainte.clsEquidistanceCourbe.TraiterEquidistanceTable(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+	<summary>
+ Routine qui permet de sélectionner les éléments du FeatureLayer qui respecte ou non les équidistances d'élévation spécifiées 
+ contenues dans une table par identifiant 50K.
+ L'équidistance correspond à une distance verticale séparant deux courbes de niveau.
+ Le calcul de la distance verticale est obtenue à l'aide d'une grille de lignes verticales.
  
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+ Seuls les éléments sélectionnés sont traités.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+ bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
+ bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
+</member><member name="M:ValiderContrainte.clsEquidistanceCourbe.DefinirEquidistancesTable(System.String)">
+	<summary>
+ Fonction qui permet de retourner une collection de structures d'équidistances à valider contenues dans une table d'équidistances.
+ 
+ La table contient entre autre les attributs suivants :
+   IDENTIFIANT  : Identifiant de découpage.
+   ELEVATION_MIN: Élévation minimum de l'équidistance.
+   ELEVATION_MAX: Élévation maximum de l'équidistance.
+   EQUIDISTANCES: Équidistance à valider.
+</summary>
+	<param name="sIdentifiant"> Contient l'identifiant de découpage à valider.</param>
+</member><member name="M:ValiderContrainte.clsEquidistanceCourbe.TraiterEquidistanceTableElement(Microsoft.VisualBasic.Collection,ESRI.ArcGIS.Geodatabase.ITopologyGraph4,ESRI.ArcGIS.Carto.IFeatureLayer,ESRI.ArcGIS.Geodatabase.IFeature,System.Boolean,ESRI.ArcGIS.Geodatabase.ISelectionSet@,Microsoft.VisualBasic.Collection@,ESRI.ArcGIS.Geometry.IGeometryBag@)">
+	<summary>
+ Routine qui permet de valider les courbes de niveau à partir d'une ligne de la grille de validation en utilisant les équidistances contenues dans une table.
+</summary>
+	<param name="qEquidistances"> Contient la collection des structures d'équidistances de la table à valider.</param>
+	<param name="pTopologyGraph"> Contient la topologie entre les courbes et le FeatureLayer de la grille de validation.</param>
+	<param name="pFeatureLayerGrille"> Contient les éléments des lignes de la grille de validation.</param>
+	<param name="pFeature"> Contient l'élément de la ligne de la grille de validation.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<param name="pSelectionSet"> Contient les éléments sélectionnés en erreur.</param>
+	<param name="oIncoherences"> Contient les incohérences d'erreurs.</param>
+	<param name="pGeometryBag"> Contient les géométries en erreur.</param>
+</member><member name="M:ValiderContrainte.clsEquidistanceCourbe.TraiterTopologieCourbe(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+	<summary>
+ Routine qui permet de sélectionner les éléments du FeatureLayer qui respecte ou non les équidistances d'élévation spécifiées.
+ L'équidistance correspond à une distance verticale séparant deux courbes de niveau.
+ Le calcul de la distance verticale est obtenue à l'aide d'une grille de lignes verticales.
+ 
+ Seuls les éléments sélectionnés sont traités.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+ bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
+ bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
+</member><member name="M:ValiderContrainte.clsEquidistanceCourbe.TraiterTopologieCourbeElement(ESRI.ArcGIS.Geodatabase.ITopologyGraph4,ESRI.ArcGIS.Carto.IFeatureLayer,ESRI.ArcGIS.Geodatabase.IFeature,System.Boolean,ESRI.ArcGIS.Geodatabase.ISelectionSet@,Microsoft.VisualBasic.Collection@,ESRI.ArcGIS.Geometry.IGeometryBag@)">
+	<summary>
+ Routine qui permet de valider les courbes de niveau à partir d'une ligne de la grille de validation.
+</summary>
+	<param name="pTopologyGraph"> Contient la topologie entre les courbes et le FeatureLayer de la grille de validation.</param>
+	<param name="pFeatureLayerGrille"> Contient les éléments des lignes de la grille de validation.</param>
+	<param name="pFeature"> Contient l'élément de la ligne de la grille de validation.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<param name="pSelectionSet"> Contient les éléments sélectionnés en erreur.</param>
+	<param name="oIncoherences"> Contient les incohérences d'erreurs.</param>
+	<param name="pGeometryBag"> Contient les géométries en erreur.</param>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.TraiterCodeElevationCourbe(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer qui respecte ou non les codes et les valeurs d'élévation spécifiés.
@@ -2689,11 +2949,10 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés qui respecte ou non les codes et les valeurs d'élévation spécifiés.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés qui respecte ou non les codes et les valeurs d'élévation spécifiés.</return>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.ValiderValeurEquidistanceFeature(ESRI.ArcGIS.Geodatabase.IFeature,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
 	<summary>
  Routine qui permet de valider les valeurs d'élévation des courbes de niveau qui respectent les multiples des différents
@@ -2708,29 +2967,12 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 	<param name="nValeurCourbeMaitresse">Valeur de l'équidistance des courbes maîtresses.</param>
 	<param name="nValeurCourbeIntermediaire">Valeur de l'équidistance des courbes Intermédiaire.</param>
 	<param name="nValeurCourbeIntercalaire">Valeur de l'équidistance des courbes Intercalaire.</param>
-</member><member name="M:ValiderContrainte.clsEquidistanceCourbe.TraiterTopologieCourbe(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
-	<summary>
- Routine qui permet de sélectionner les éléments du FeatureLayer qui respecte ou non les équidistances d'élévation spécifiées.
- L'équidistance correspond à une distance verticale séparant deux courbes de niveau.
- Le calcul de la distance verticale est obtenue à l'aide d'une grille de lignes verticales.
- 
- Seuls les éléments sélectionnés sont traités.
- Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
- 
- bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
- bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
-	</summary>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.CreerFeatureLayerGrilleValidation(ESRI.ArcGIS.Geometry.IGeometryBag)">
 	<summary>
  Fonction qui permet de créer un FeatureLayer contenant la FeatureClass de la grille de validation en mémoire.
- 
-<param name="pGrilleValidation"> GeometryBag  contenant les lignes de la grille de validation.</param>
-		<return>Le FeatureLayer de la grille de validation.</return>
-	</summary>
+</summary>
+	<param name="pGrilleValidation"> GeometryBag  contenant les lignes de la grille de validation.</param>
+	<return>Le FeatureLayer de la grille de validation.</return>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.TraiterElevationCourbe(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer qui respecte ou non les équidistances d'élévation spécifiées.
@@ -2742,11 +2984,10 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.InsererPointIntersectionLigne(ESRI.ArcGIS.Geodatabase.IFeature,ESRI.ArcGIS.Geometry.IGeometry,System.Int32,ESRI.ArcGIS.Geometry.IPolyline@)">
 	<summary>
  Fonction qui permet d'insérer dans la ligne de la grille les points d'intersection entre la ligne de la grille et les courbes en relation.
@@ -2767,11 +3008,10 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.InsererPointIntersectionLigneGrille(ESRI.ArcGIS.Geometry.IPolyline@,ESRI.ArcGIS.Carto.IFeatureLayer@,System.Int32)">
 	<summary>
  Fonction qui permet d'insérer dans la ligne de la grille les points d'intersection entre la ligne de la grille et les courbes en relation.
@@ -2783,21 +3023,19 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.CreerLigneVerticaleParElement(ESRI.ArcGIS.Geometry.IPolygon,ESRI.ArcGIS.Geometry.IGeometryBag@,ESRI.ArcGIS.esriSystem.ITrackCancel@)">
 	<summary>
  Routine qui permet de créer des lignes verticales dans la grille de validation pour chaque élément traité.
- 
-<param name="pGeometryDecoupage"> Interface contenant la géométrie de découpage.</param>
-		<param name="pGrilleValidation"> Interface contenant les lignes verticale de la grille de validation.</param>
-		<param name="pTrackCancel"> Interface qui permet d'annuler et afficher le traitement.</param>
-		<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
-	</summary>
+</summary>
+	<param name="pGeometryDecoupage"> Interface contenant la géométrie de découpage.</param>
+	<param name="pGrilleValidation"> Interface contenant les lignes verticale de la grille de validation.</param>
+	<param name="pTrackCancel"> Interface qui permet d'annuler et afficher le traitement.</param>
+	<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.CreerLigneHorizontaleParElement(ESRI.ArcGIS.Geometry.IPolygon,ESRI.ArcGIS.Geometry.IGeometryBag@,ESRI.ArcGIS.esriSystem.ITrackCancel@)">
 	<summary>
  Routine qui permet de créer des lignes horizontales dans la grille de validation pour chaque élément traité.
- 
-<param name="pGeometryDecoupage"> Interface contenant la géométrie de découpage.</param>
-		<param name="pGrilleValidation"> Interface contenant les lignes verticale de la grille de validation.</param>
-		<param name="pTrackCancel"> Interface qui permet d'annuler et afficher le traitement.</param>
-		<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
-	</summary>
+</summary>
+	<param name="pGeometryDecoupage"> Interface contenant la géométrie de découpage.</param>
+	<param name="pGrilleValidation"> Interface contenant les lignes verticale de la grille de validation.</param>
+	<param name="pTrackCancel"> Interface qui permet d'annuler et afficher le traitement.</param>
+	<return>Les intersection entre les éléments sélectionnés et les lignes de la grille de validation qui respecte ou non les équidistances d'élévation spécifiées.</return>
 </member><member name="M:ValiderContrainte.clsEquidistanceCourbe.CreerGrilleLigneVerticale(ESRI.ArcGIS.Geometry.IPolygon,System.Double,ESRI.ArcGIS.esriSystem.ITrackCancel@)">
 	<summary>
  Fonction qui permet de créer et retourner un "GeometryBag" contenant toutes les lignes verticales
@@ -2865,16 +3103,19 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
  Classe qui permet de sélectionner les éléments du FeatureLayer dont l’élévation des courbes de niveau respecte ou non
  les codes et les équidistances spécifiés.
  
- La classe permet de traiter les deux attributs d'élévation des courbes de niveau CODE et EQUIDISTANCE.
+ La classe permet de traiter les trois attributs d'élévation des courbes de niveau CODE, EQUIDISTANCE et TABLE.
  
  CODE : Traite les trois codes d'équidistance soit ceux des courbes maitresse, intermédiaire et intercalaire.
  
- EQUIDISTANCE : Traite les différences entre les valeurs d'élévation des courbes qui intersecte les lignes verticales d'une grille de validation.
+ EQUIDISTANCE : Traite les différences entre les valeurs d'élévation des courbes qui intersecte les lignes verticales d'une grille de validation 
+                selon une équidistance obligatoire et optionnelle.
+ 
+ TABLE : Traite les différences entre les valeurs d'élévation des courbes qui intersecte les lignes verticales d'une grille de validation 
+         selon des équidistances contenue dans une table d'équidistances.
  
  Note : 
  Le code est présent dans un attribut de la classe des courbes de niveau.
  La valeur d'élévation est présente dans un attribut de la classe des courbes de niveau.
- 
 </summary>
 	<remarks>
  Auteur : Michel Pothier
@@ -3221,6 +3462,18 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
 </summary>
 	<param name="pFeatureLayerDecoupage">Interface contenant les élements de découpage sélectionnés.</param>
 	<return>IPolyline contenant la les limites de découpage des éléments sélectionner dans le Layer de découpage, Vide si aucun sélectionné.</return>
+</member><member name="M:ValiderContrainte.intRequete.DefinirTable(System.String,System.String,System.String)">
+	<summary>
+Fonction qui permet de définir une table contenue dans une géodatabase.
+</summary>
+	<param name="sNomTable"> Nom complet de la table incluant le nom de la géodatabase.</param>
+	<returns>ITable contenant la table, sinon Nothing.</returns>
+</member><member name="M:ValiderContrainte.intRequete.DefinirGeodatabase(System.String)">
+	<summary>
+Fonction qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de Géodatabase.
+</summary>
+	<param name="sNomGeodatabase"> Nom de la géodatabase à ouvrir.</param>
+	<returns>IWorkspace contenant la géodatabase.</returns>
 </member><member name="M:ValiderContrainte.intRequete.Selectionner(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Fonction qui permet de sélectionner les éléments du FeatureLayer dont la valeur d'attribut respecte ou non l'expression régulière spécifiée.
@@ -3250,35 +3503,33 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
 	<summary>Indique que chaque élément en relation seront à traiter de façon unique.</summary>
 </member><member name="F:ValiderContrainte.clsNombreIntersection.gbSimplifier">
 	<summary>Indique si on veut simplifier les géométries d'intersection.</summary>
+</member><member name="F:ValiderContrainte.clsNombreIntersection.gqValeurAttribut">
+	<summary>Contient les noms d'attributs dont les valeurs doivent être identiques lors d'une intersection.</summary>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.#ctor">
 	<summary>
  Routine qui permet d'instancier la classe en objet avec les valeurs par défaut.
- 
 </summary>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.#ctor(ESRI.ArcGIS.Carto.IMap@,ESRI.ArcGIS.Carto.IFeatureLayer@,System.String,System.String,System.Boolean,System.Boolean)">
 	<summary>
  Routine qui permet d'instancier la classe en objet.
- 
-<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
-		<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
-		<param name="sNomAttribut"> Nom de l'attribut à traiter.</param>
-		<param name="sExpression"> Expression régulière à traiter.</param>
-	</summary>
+</summary>
+	<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
+	<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
+	<param name="sNomAttribut"> Nom de l'attribut à traiter.</param>
+	<param name="sExpression"> Expression régulière à traiter.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.#ctor(ESRI.ArcGIS.Carto.IFeatureLayer@,System.String)">
 	<summary>
  Routine qui permet d'instancier la classe en objet.
- 
-<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
-		<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
-	</summary>
+</summary>
+	<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
+	<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.#ctor(ESRI.ArcGIS.Carto.IMap@,ESRI.ArcGIS.Carto.IFeatureLayer@,System.String)">
 	<summary>
  Routine qui permet d'instancier la classe en objet.
- 
-<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
-		<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
-		<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
-	</summary>
+</summary>
+	<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
+	<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
+	<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
 </member><member name="P:ValiderContrainte.clsNombreIntersection.Nom">
 	<summary>
  Propriété qui permet de retourner le nom de la contrainte d'intégrité à traiter.
@@ -3310,15 +3561,13 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
 </member><member name="M:ValiderContrainte.clsNombreIntersection.FeatureClassValide">
 	<summary>
  Routine qui permet d'indiquer si la FeatureClass est valide.
- 
-<return>Boolean qui indique si la FeatureClass est valide.</return>
-	</summary>
+</summary>
+	<return>Boolean qui indique si la FeatureClass est valide.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.AttributValide">
 	<summary>
  Routine qui permet d'indiquer si l'attribut est valide.
- 
-<return>Boolean qui indique si l'attribut est valide.</return>
-	</summary>
+</summary>
+	<return>Boolean qui indique si l'attribut est valide.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.Selectionner(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont le nombre d'intersection entre deux géométries
@@ -3329,11 +3578,10 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.TraiterNombreIntersectionEdge(ESRI.ArcGIS.Geodatabase.ITopologyGraph4@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont le nombre d'éléments qui intersecte chaque EDGE de la topologie n'est pas respecté.
@@ -3343,12 +3591,11 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTopologyGraph"> Interface contenant la topologie.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+</summary>
+	<param name="pTopologyGraph"> Interface contenant la topologie.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.TraiterNombreIntersectionNode(ESRI.ArcGIS.Geodatabase.ITopologyGraph4@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont le nombre de EDGE qui intersecte chaque NODE de la topologie n'est pas respecté.
@@ -3358,12 +3605,11 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTopologyGraph"> Interface contenant la topologie.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+</summary>
+	<param name="pTopologyGraph"> Interface contenant la topologie.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.TraiterNombreIntersectionInterieure(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont le nombre d'intersection intérieure respecte ou non 
@@ -3374,11 +3620,10 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les intersections intérieures entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les intersections intérieures entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.TraiterNombreIntersectionExterieure(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont le nombre d'intersection extérieure respecte ou non l'expression spécifiée.
@@ -3388,37 +3633,34 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les intersections extérieures entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les intersections extérieures entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreExterieureUnique(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'identifier les intersections extérieures uniques entre les éléments du FeatureLayer et les éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreExterieureMultiple(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'identifier les intersections Extérieures multiples entre les éléments du FeatureLayer et les éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.ExtraireIntersectionExterieure(ESRI.ArcGIS.Geometry.IGeometry@,ESRI.ArcGIS.Geometry.IGeometry@)">
 	<summary>
  Routine qui permet d'extraire l'intersection extérieure entre la géométrie de l'élément à traiter et la géométrie d'un élément en relation.
@@ -3429,49 +3671,57 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
 </member><member name="M:ValiderContrainte.clsNombreIntersection.InitialiserIntersection(ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'initialiser le GeometryBag contenant les intersections résultantes.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
-</member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreInterieureUnique(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
+</member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreInterieureUnique(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],ESRI.ArcGIS.Carto.IFeatureLayer,ESRI.ArcGIS.Carto.IFeatureLayer,System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'identifier les intersections intérieures uniques entre les éléments du FeatureLayer et les éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
-</member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreInterieureMultiple(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="pFeatureLayerSel"> Interface contenant la classe d'éléments à traiter.</param>
+	<param name="pFeatureLayerRel"> Interface contenant la classe d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
+</member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreInterieureMultiple(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],ESRI.ArcGIS.Carto.IFeatureLayer,ESRI.ArcGIS.Carto.IFeatureLayer,System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'identifier les intersections intérieures multiples entre les éléments du FeatureLayer et les éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="pFeatureLayerSel"> Interface contenant la classe d'éléments à traiter.</param>
+	<param name="pFeatureLayerRel"> Interface contenant la classe d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
+</member><member name="M:ValiderContrainte.clsNombreIntersection.ValeurAttributIdentique(ESRI.ArcGIS.Geodatabase.IFeature,ESRI.ArcGIS.Geodatabase.IFeature,Microsoft.VisualBasic.Collection)">
+	<summary>
+ Routine qui permet d'indiquer si les valeurs d'attributs sont identiques.
+</summary>
+	<param name="pFeatureSel">Interface contenant un élément de sélection.</param>
+	<param name="pFeatureRel">Interface contenant un élément en relation.</param>
+	<param name="qCollAttribut">Collection des attributs à comparer.</param>
+	<returns> Boolean indiquant si les valeurs d'attributs sont identiques.</returns>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.SelectionnerNombreIntersection(System.Boolean,System.Text.RegularExpressions.Regex@,System.Int32[]@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geodatabase.ISelectionSet@)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer traité qui respecte ou non le nombre d'intersections spécifiés.
- 
-<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<param name="oRegEx"> Objet utilisé pour vérifier si la valeur respecte l'expression régulière.</param>
-		<param name="iOidSel"> Vecteur des OIds des éléments à traiter.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-		<param name="pNewSelectionSet"> Interface pour sélectionner les éléments.</param>
-	</summary>
+</summary>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<param name="oRegEx"> Objet utilisé pour vérifier si la valeur respecte l'expression régulière.</param>
+	<param name="iOidSel"> Vecteur des OIds des éléments à traiter.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
+	<param name="pNewSelectionSet"> Interface pour sélectionner les éléments.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.ExtraireIntersectionInterieure(ESRI.ArcGIS.Geometry.IGeometry@,ESRI.ArcGIS.Geometry.IGeometry@)">
 	<summary>
  Routine qui permet d'extraire l'intersection intérieure entre la géométrie de l'élément à traiter et la géométrie d'un élément en relation.
@@ -3489,57 +3739,52 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les intersections entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les intersections entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.InitialiserSurfaceIntersection(ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'initialiser le GeometryBag contenant les surfaces d'intersections résultantes.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreSurfaceUnique(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'identifier les intersections surfaces uniques entre les éléments du FeatureLayer et les éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreSurfaceMultiple(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'identifier les intersections surfaces multiples entre les éléments du FeatureLayer et les éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.SelectionnerNombreSurface(System.Boolean,System.Text.RegularExpressions.Regex@,System.Int32[]@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geodatabase.ISelectionSet@)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer traité qui respecte ou non le nombre d'intersections surface spécifiés.
- 
-<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<param name="oRegEx"> Objet utilisé pour vérifier si la valeur respecte l'expression régulière.</param>
-		<param name="iOidSel"> Vecteur des OIds des éléments à traiter.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-		<param name="pNewSelectionSet"> Interface pour sélectionner les éléments.</param>
-	</summary>
+</summary>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<param name="oRegEx"> Objet utilisé pour vérifier si la valeur respecte l'expression régulière.</param>
+	<param name="iOidSel"> Vecteur des OIds des éléments à traiter.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
+	<param name="pNewSelectionSet"> Interface pour sélectionner les éléments.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.ExtraireIntersectionSurface(ESRI.ArcGIS.Geometry.IGeometry@,ESRI.ArcGIS.Geometry.IGeometry@)">
 	<summary>
  Routine qui permet d'extraire l'intersection de type surface entre la géométrie de l'élément à traiter et la géométrie d'un élément en relation.
@@ -3557,57 +3802,52 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les intersections entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les intersections entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.InitialiserLigneIntersection(ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'initialiser le GeometryBag contenant les lignes d'intersections résultantes.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreLigneUnique(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'identifier les intersections lignes uniques entre les éléments du FeatureLayer et les éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreLigneMultiple(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'identifier les intersections lignes multiples entre les éléments du FeatureLayer et les éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.SelectionnerNombreLigne(System.Boolean,System.Text.RegularExpressions.Regex@,System.Int32[]@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geodatabase.ISelectionSet@)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer traité qui respecte ou non le nombre d'intersections ligne spécifiés.
- 
-<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<param name="oRegEx"> Objet utilisé pour vérifier si la valeur respecte l'expression régulière.</param>
-		<param name="iOidSel"> Vecteur des OIds des éléments à traiter.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-		<param name="pNewSelectionSet"> Interface pour sélectionner les éléments.</param>
-	</summary>
+</summary>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<param name="oRegEx"> Objet utilisé pour vérifier si la valeur respecte l'expression régulière.</param>
+	<param name="iOidSel"> Vecteur des OIds des éléments à traiter.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
+	<param name="pNewSelectionSet"> Interface pour sélectionner les éléments.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.ExtraireIntersectionLigne(ESRI.ArcGIS.Geometry.IGeometry@,ESRI.ArcGIS.Geometry.IGeometry@)">
 	<summary>
  Routine qui permet d'extraire l'intersection de type point entre la géométrie de l'élément à traiter et la géométrie d'un élément en relation.
@@ -3625,57 +3865,52 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les intersections entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les intersections entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.InitialiserPointIntersection(ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'initialiser le GeometryBag contenant les points d'intersections résultantes.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombrePointUnique(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'identifier les intersections points uniques entre les éléments du FeatureLayer et les éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombrePointMultiple(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@)">
 	<summary>
  Routine qui permet d'identifier les intersections points multiples entre les éléments du FeatureLayer et les éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-	</summary>
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.SelectionnerNombrePoint(System.Boolean,System.Text.RegularExpressions.Regex@,System.Int32[]@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geodatabase.ISelectionSet@)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer traité qui respecte ou non le nombre d'intersections point spécifiés.
- 
-<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<param name="oRegEx"> Objet utilisé pour vérifier si la valeur respecte l'expression régulière.</param>
-		<param name="iOidSel"> Vecteur des OIds des éléments à traiter.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-		<param name="pNewSelectionSet"> Interface pour sélectionner les éléments.</param>
-	</summary>
+</summary>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<param name="oRegEx"> Objet utilisé pour vérifier si la valeur respecte l'expression régulière.</param>
+	<param name="iOidSel"> Vecteur des OIds des éléments à traiter.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
+	<param name="pNewSelectionSet"> Interface pour sélectionner les éléments.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.ExtraireIntersectionPoint(ESRI.ArcGIS.Geometry.IGeometry@,ESRI.ArcGIS.Geometry.IGeometry@)">
 	<summary>
  Routine qui permet d'extraire l'intersection de type point entre la géométrie de l'élément à traiter et la géométrie d'un élément en relation.
@@ -3693,37 +3928,34 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les intersections entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les intersections entre la géométrie des éléments sélectionnés et les géométries des éléments en relation.</return>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.IdentifierNombreElement(ESRI.ArcGIS.Geometry.IRelationResult@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geometry.IGeometryCollection@,System.Int32[],System.Int32[],System.Boolean,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Int32[]@)">
 	<summary>
- Routine qui permet d'identifier les éléments du FeatureLayer qui poss`des des éléments en relation.
- 
-<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
-		<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
-		<param name="bMemeClasse"> Indique si on traite la même classe.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="iNbRes"> Vecteur des nombres d'éléments en relation.</param>
-	</summary>
+ Routine qui permet d'identifier les éléments du FeatureLayer qui possèdent des éléments en relation.
+</summary>
+	<param name="pRelResult"> Résultat du traitement de la relation spatiale obtenu.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pGeomRelColl"> Interface contenant les géométries des éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIDs d'éléments à traiter.</param>
+	<param name="iOidRel"> Vecteur des OIDs d'éléments en relation.</param>
+	<param name="bMemeClasse"> Indique si on traite la même classe.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="iNbRes"> Vecteur des nombres d'éléments en relation.</param>
 </member><member name="M:ValiderContrainte.clsNombreIntersection.SelectionnerNombreElement(System.Boolean,System.Text.RegularExpressions.Regex@,System.Int32[]@,System.Int32[]@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.esriSystem.ITrackCancel@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.Geodatabase.ISelectionSet@)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer traité qui respecte ou non le nombre d'éléments spécifiés.
- 
-<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<param name="oRegEx"> Objet utilisé pour vérifier si la valeur respecte l'expression régulière.</param>
-		<param name="iNbRes"> Vecteur des nombres d'éléments en relation.</param>
-		<param name="iOidSel"> Vecteur des OIds des éléments à traiter.</param>
-		<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
-		<param name="pNewSelectionSet"> Interface pour sélectionner les éléments.</param>
-	</summary>
+</summary>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<param name="oRegEx"> Objet utilisé pour vérifier si la valeur respecte l'expression régulière.</param>
+	<param name="iNbRes"> Vecteur des nombres d'éléments en relation.</param>
+	<param name="iOidSel"> Vecteur des OIds des éléments à traiter.</param>
+	<param name="pGeomSelColl"> Interface contenant les géométries des éléments à traiter.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="pGeomResColl"> Interface contenant les géométries des éléments trouvés.</param>
+	<param name="pNewSelectionSet"> Interface pour sélectionner les éléments.</param>
 </member><member name="T:ValiderContrainte.clsNombreIntersection">
 	<summary>
  Classe qui permet de sélectionner les éléments du FeatureLayer dont le nombre d’intersection de géométrie de type point, ligne ou surface 
@@ -3877,7 +4109,7 @@ Ce traitement s'effectue seulement sur des Points, Multi-points, lignes et surfa
 	<param name="sNom"> Nom de la requête à traiter.</param>
 	<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
 	<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
-</member><member name="M:ValiderContrainte.clsRequete.CreerFeatureLayer(System.String,ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,ESRI.ArcGIS.Geometry.ISpatialReference,ESRI.ArcGIS.Geodatabase.IQueryFilter)">
+</member><member name="M:ValiderContrainte.clsRequete.CreerFeatureLayer(System.String,ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,ESRI.ArcGIS.Geometry.ISpatialReference,ESRI.ArcGIS.Geodatabase.IQueryFilter,System.String)">
 	<summary>
 Fonction qui permet de créer un FeatureLayer contenant ou non une condition attributive.
 </summary>
@@ -3885,6 +4117,8 @@ Fonction qui permet de créer un FeatureLayer contenant ou non une condition att
 	<param name="pFeatureWorkspace">Interface utilisé pour ouvrir une classe dans la Géodatabase.</param>
 	<param name="pSpatialReference">Interface contenant la référence spatiale de traitement.</param>
 	<param name="pQueryFilter">Interface utilisé pour sélectionner seulement les éléments du découpage.</param>
+	<param name="sNomProprietaireDefaut"> Contient le nom du propriétaire des tables par défaut pour les Géodatabase Enterprise.</param>
+	<returns>IFeatureLayer contenant la classe à traiter avec sa requête attributive si spécifiée.</returns>
 </member><member name="M:ValiderContrainte.clsRequete.CreerFeatureLayerCollection(System.String,ESRI.ArcGIS.Geodatabase.IFeatureWorkspace,Microsoft.VisualBasic.Collection,ESRI.ArcGIS.Geometry.ISpatialReference,ESRI.ArcGIS.Geodatabase.IQueryFilter)">
 	<summary>
 Fonction qui permet de créer une collection de FeatureLayer en relation contenant ou non une condition attributive.
@@ -3909,7 +4143,7 @@ Fonction qui permet de créer un RasterLayer à partir d'un nom complet d'image 
 	<param name="pSpatialReference">Interface contenant la référence spatiale de traitement.</param>
 </member><member name="M:ValiderContrainte.clsRequete.DefinirGeodatabase(System.String@)">
 	<summary>
-Routine qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de Géodatabase.
+Fonction qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de Géodatabase.
 </summary>
 	<param name="sNomGeodatabase"> Nom de la géodatabase à ouvrir.</param>
 </member><member name="M:ValiderContrainte.clsRequete.EcrireMessage(System.String)">
@@ -3931,33 +4165,29 @@ Routine qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de G�
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.#ctor">
 	<summary>
  Routine qui permet d'instancier la classe en objet avec les valeurs par défaut.
- 
 </summary>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.#ctor(ESRI.ArcGIS.Carto.IMap@,ESRI.ArcGIS.Carto.IFeatureLayer@,System.String,System.String,System.String)">
 	<summary>
  Routine qui permet d'instancier la classe en objet.
- 
-<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
-		<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
-		<param name="sNomAttribut"> Nom de l'attribut à traiter.</param>
-		<param name="sExpression"> Expression régulière à traiter.</param>
-		<param name="sListeAttribut"> Liste des attributs utilisée pour fusionner les géométries.</param>
-	</summary>
+</summary>
+	<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
+	<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
+	<param name="sNomAttribut"> Nom de l'attribut à traiter.</param>
+	<param name="sExpression"> Expression régulière à traiter.</param>
+	<param name="sListeAttribut"> Liste des attributs utilisée pour fusionner les géométries.</param>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.#ctor(ESRI.ArcGIS.Carto.IFeatureLayer@,System.String)">
 	<summary>
  Routine qui permet d'instancier la classe en objet.
- 
-<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
-		<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
-	</summary>
+</summary>
+	<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
+	<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.#ctor(ESRI.ArcGIS.Carto.IMap@,ESRI.ArcGIS.Carto.IFeatureLayer@,System.String)">
 	<summary>
  Routine qui permet d'instancier la classe en objet.
- 
-<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
-		<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
-		<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
-	</summary>
+</summary>
+	<param name="pMap"> Interface ESRI contenant tous les FeatureLayers.</param>
+	<param name="pFeatureLayerSelection"> Interface contenant le FeatureLayer de sélection à traiter.</param>
+	<param name="sParametres"> Paramètres contenant le nom de l'attribut (0) et l'expression régulière (1) à traiter.</param>
 </member><member name="P:ValiderContrainte.clsCreerGeometrie.Nom">
 	<summary>
  Propriété qui permet de retourner le nom de la contrainte d'intégrité à traiter.
@@ -3974,12 +4204,12 @@ Routine qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de G�
 	<summary>
  Fonction qui permet de retourner la liste des paramètres possibles.
 </summary>
+	<returns> Collection contenant la liste des paramètres.</returns>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.AttributValide">
 	<summary>
  Routine qui permet d'indiquer si l'attribut est valide.
- 
-<return>Boolean qui indique si l'attribut est valide.</return>
-	</summary>
+</summary>
+	<return>Boolean qui indique si l'attribut est valide.</return>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.Selectionner(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de sélectionner les éléments du FeatureLayer dont les géométries des éléments respectent ou non l'état VIDE, SIMPLE ou FERMER.
@@ -3989,41 +4219,94 @@ Routine qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de G�
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
+</member><member name="M:ValiderContrainte.clsCreerGeometrie.TraiterCreerGeometrieLimiteVrai(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+	<summary>
+ Routine qui permet de créer une géométrie pour chaque partie de limite d'une géométrie.
  
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+ Seuls les éléments sélectionnés sont traités.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+ bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
+ bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+</summary>
+	<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
+</member><member name="M:ValiderContrainte.clsCreerGeometrie.TraiterCreerGeometrieLimiteFaux(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+	<summary>
+ Routine qui permet de créer une géométrie pour l'ensemble des parties de limite d'une géométrie.
+ 
+ Seuls les éléments sélectionnés sont traités.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+ bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
+ bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+</summary>
+	<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
+</member><member name="M:ValiderContrainte.clsCreerGeometrie.TraiterCreerGeometrieTrouVrai(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+	<summary>
+ Routine qui permet de créer une géométrie selon chaque trou d'une surface.
+ 
+ Seuls les éléments sélectionnés sont traités.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+ bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
+ bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+</summary>
+	<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
+</member><member name="M:ValiderContrainte.clsCreerGeometrie.TraiterCreerGeometrieTrouFaux(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
+	<summary>
+ Routine qui permet de créer une géométrie pour tous les trous d'une surface.
+ 
+ Seuls les éléments sélectionnés sont traités.
+ Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
+ 
+ bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
+ bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
+</summary>
+	<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.TraiterCreerGeometrieUniqueVrai(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
- Routine qui permet de créer une géométrie unique complexe. Les géométries sont fusionnées.
+ Routine qui permet de créer une géométrie unique (un seul élément contenant toutes les géométries) complexe. Les géométries sont fusionnées.
  
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+</summary>
+	<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.TraiterCreerGeometrieUniqueFaux(ESRI.ArcGIS.Geodatabase.IFeatureCursor@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
- Routine qui permet de créer une géométrie unique multiple. Les géométries ne sont pas fusionnées.
+ Routine qui permet de créer une géométrie unique (un seul élément contenant toutes les géométries) multiple. Les géométries ne sont pas fusionnées.
  
  Seuls les éléments sélectionnés sont traités.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+</summary>
+	<param name="pFeatureCursor"> Interface utilisé pour extraire les éléments sélectionnés.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.TraiterCreerGeometrieIntersecte(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de créer des géométries complexes ou multiples qui s'intersect entre elles.
@@ -4033,22 +4316,20 @@ Routine qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de G�
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.AjouterGeometrieRelation(System.Int32,ESRI.ArcGIS.Geometry.IGeometry@,ESRI.ArcGIS.Geometry.IGeometryCollection@,ESRI.ArcGIS.esriSystem.ISet[]@,System.Int32[]@,System.Boolean)">
 	<summary>
  Routine qui permet d'ajouter les géométries en relation afin de former une seule géométrie.
- 
-<param name="i"> Pointeur de géométrie traitée.</param>
-		<param name="pGeometry"> Interface contenant la géométrie initiale.</param>
-		<param name="pGeomSelColl"> Interface contenant toutes les géométries à traiter.</param>
-		<param name="pSet"> Interface contenant les pointeurs des géométries en relation pour toutes les géométries.</param>
-		<param name="pSet"> Contient les OBJECTID pour toutes les géométries à traiter.</param>
-		<param name="pSet"> Indique si on doit ajouter la géométrie traitée dans la géométrie initiale.</param>
-	</summary>
+</summary>
+	<param name="i"> Pointeur de géométrie traitée.</param>
+	<param name="pGeometry"> Interface contenant la géométrie initiale.</param>
+	<param name="pGeomSelColl"> Interface contenant toutes les géométries à traiter.</param>
+	<param name="pSet"> Interface contenant les pointeurs des géométries en relation pour toutes les géométries.</param>
+	<param name="iOidSel"> Contient les OBJECTID pour toutes les géométries à traiter.</param>
+	<param name="bAjouter"> Indique si on doit ajouter la géométrie traitée dans la géométrie initiale.</param>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.TraiterCreerGeometrieAttributVrai(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de créer une géométrie complexe unique. Les géométries sont fusionnées.
@@ -4058,11 +4339,10 @@ Routine qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de G�
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.TraiterCreerGeometrieAttributFaux(ESRI.ArcGIS.esriSystem.ITrackCancel@,System.Boolean)">
 	<summary>
  Routine qui permet de créer une géométrie multiple unique. Les géométries ne sont pas fusionnées.
@@ -4072,35 +4352,34 @@ Routine qui permet d'ouvrir et retourner la Geodatabase à partir d'un nom de G�
  
  bEnleverSelection=True : Les éléments qui respectent la contrainte sont enlevés dans la sélection.
  bEnleverSelection=False : Les éléments qui respectent la contrainte sont conservés dans la sélection.
- 
-<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
-		<return>Les géométries des éléments sélectionnés.</return>
-	</summary>
+</summary>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="bEnleverSelection"> Indique si on doit enlever les éléments de la sélection, sinon ils sont conservés. Défaut=True.</param>
+	<return>Les géométries des éléments sélectionnés.</return>
 </member><member name="M:ValiderContrainte.clsCreerGeometrie.LireElementListeAttribut(ESRI.ArcGIS.Carto.IFeatureLayer@,ESRI.ArcGIS.esriSystem.ITrackCancel@,System.String)">
 	<summary>
  Routine qui permet de lire les éléments d'un FeatureLayer et de les conserver par la liste des valeurs d'attributs spécifiés.
  
  Seuls les éléments sélectionnés sont lus.
  Si aucun élément n'est sélectionné, tous les éléments sont considérés sélectionnés.
- 
-<param name="pFeatureLayer"> Interface contenant les éléments à lire.</param>
-		<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
-		<param name="pTrackCancel"> Contient les noms d'attributs utilisés pour fusionner les géométries.</param>
-		<return> Dictionary(Of String, IGeometryBag) contenant les éléments par lien.</return>
-	</summary>
+</summary>
+	<param name="pFeatureLayer"> Interface contenant les éléments à lire.</param>
+	<param name="pTrackCancel"> Permet d'annuler la sélection avec la touche ESC du clavier.</param>
+	<param name="sListeAttribut"> Contient les noms d'attributs utilisés pour fusionner les géométries.</param>
+	<return> Dictionary(Of String, IGeometryBag) contenant les éléments par lien.</return>
 </member><member name="T:ValiderContrainte.clsCreerGeometrie">
 	<summary>
  Classe qui permet de créer des nouvelles géométries complexes ou multiples selon diverses méthodes.
  
  La classe permet de traiter les trois attributs de géométrie UNIQUE, INTERSECTE et ATTRIBUT.
  
- UNIQUE : Créer une nouvelle géométrie unique complexe ou multiple.
+ UNIQUE : Créer une nouvelle géométrie unique (un seul élément contenant toutes les géométries) complexe ou multiple.
+ LIMITE : Créer une nouvelle géométrie pour chaque partie de limite ou pour l'ensemble des parties de limite d'une géométrie.
+ TROU : Créer une nouvelle géométrie pour chaque trou ou pour l'ensemble des trous d'un Polygone.
  INTERSECTE : Créer des nouvelles géométries complexes ou multiples qui s'intersectent entre elles.
  ATTRIBUT : Créer des nouvelles géométries complexes ou multiples qui possèdent les mêmes valeurs d'attributs spécifiées entre elles.
  
  Note : Une géométrie complexe est une géométrie pour laquelle une simplification a été effectuée contrairement à une géométrie multiple. 
- 
 </summary>
 	<remarks>
  Auteur : Michel Pothier
